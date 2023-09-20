@@ -4,9 +4,43 @@ import React from "react";
 const MyFooter_ = () => {
   const { Footer } = Layout;
   return (
-    <Footer style={{ textAlign: "center" }}>
-      Ant Design ©2023 Created by Ant UED
-      <p>@2023 All Rights Reserved</p>
+    <Footer
+      className="footer"
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        backgroundColor: "#111827",
+      }}
+    >
+      <div className="footer-left">@2023 All Rights Reserved.</div>
+      <div className="social-media-icons">
+        <a
+          href="https://www.youtube.com/yourchannel"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className="fa fa-youtube"></i>
+        </a>
+        <a
+          href="https://www.twitter.com/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className="fa fa-twitter"></i>
+        </a>
+        <a
+          href="https://www.facebook.com/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i className="fa fa-facebook"></i>
+        </a>
+      </div>
+      <div className="footer-right">
+        <a href="https://www.facebook.com/yourprofile">Contact us</a>
+        <a href="https://www.facebook.com/yourprofile">Privacy Policies</a>
+        <a href="https://www.facebook.com/yourprofile">Help</a>
+      </div>
     </Footer>
   );
 };

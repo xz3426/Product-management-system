@@ -1,19 +1,23 @@
 import { Routes, Route, Link } from "react-router-dom";
+import "./App.css";
 import {
   NavBar,
   MyFooter,
   MyContent,
 } from "./Components/LandingPageComponents";
-import { Layout, Breadcrumb } from "antd";
-const { Header, Content, Footer, Sider, Menu } = Layout;
+import { Layout } from "antd";
 
 function App() {
   return (
-    <Layout className="layout">
-      <NavBar></NavBar>
-      <MyContent></MyContent>
-      <MyFooter></MyFooter>
-    </Layout>
+    <>
+      <Layout className="layout">
+        <NavBar></NavBar>
+        <Routes>
+          <Route path="/" element={<MyContent />} />
+        </Routes>
+        <MyFooter></MyFooter>
+      </Layout>
+    </>
   );
 }
 
