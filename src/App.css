@@ -1,4 +1,8 @@
 @import "font-awesome/css/font-awesome.min.css";
+.nav-bar {
+  color: aliceblue;
+}
+
 .footer-left {
   font-family: Arial, Helvetica, sans-serif;
   color: aliceblue;

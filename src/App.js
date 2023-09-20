@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Layout className="layout">
-        <NavBar></NavBar>
+        <NavBar isSignedIn={false}></NavBar>
         <Routes>
           <Route path="/" element={<MyContent />} />
         </Routes>
