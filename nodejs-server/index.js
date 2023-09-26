@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.post("/api/auth/signup", signup);
+app.post("/api/auth/signin", signin);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
