@@ -19,6 +19,12 @@
 .env.test.local
 .env.production.local
 
+/nodejs-server/DS_Store
+/nodejs-server/.env.local
+/nodejs-server/.env.development.local
+/nodejs-server/.env.test.local
+/nodejs-server/.env.production.local
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
