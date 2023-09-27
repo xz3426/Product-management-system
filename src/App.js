@@ -6,7 +6,8 @@ import {
   MyContent,
 } from "./Components/LandingPageComponents";
 import { Layout } from "antd";
-
+import SignUp from 'pages/SignUp';
+import LogIn from 'pages/LogIn';
 function App() {
   return (
     <>
@@ -14,6 +15,8 @@ function App() {
         <NavBar isSignedIn={false}></NavBar>
         <Routes>
           <Route path="/" element={<MyContent />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="login" element={<LogIn />} />
         </Routes>
         <MyFooter></MyFooter>
       </Layout>

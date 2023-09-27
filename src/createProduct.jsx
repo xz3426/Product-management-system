@@ -44,7 +44,7 @@ const container = {
   "font-family": "Arial, sans-serif",
 };
 
-const App = () => {
+const CreateProduct = () => {
   const [form] = Form.useForm();
 
   return (
@@ -157,4 +157,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default CreateProduct;
