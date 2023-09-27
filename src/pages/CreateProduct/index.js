@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Space, Input, Select, Form, Layout, Upload } from "antd";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
-import "./createProduct.css";
+
 
 const { Search, TextArea } = Input;
 
