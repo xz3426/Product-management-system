@@ -3,12 +3,13 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import AuthForm from 'Components/AuthForm';
 import { authUser } from 'app/userSlice';
-
-export default function LogIn() {
+import { Layout } from "antd";
+const { Content } = Layout;
+export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   const fields = [
     {
       placeholder: 'Email',
@@ -31,9 +32,32 @@ export default function LogIn() {
   };
 
   return (
-    <div>
+    <Content
+    style={{
+      padding: "0 50px",
+      minHeight: "100vh",
+      backgroundColor: "lightgrey",
+      display: "flex", // Add display flex
+        // alignItems: "center", // Center vertically
+        justifyContent: "center", // Center horizontally
+    }}
+    >
+    
+    <div
+        style={{
+          width: "700px",
+          margin: "150px auto 0", // Add a 200px margin from the top
+          padding: "20px",
+          backgroundColor: "#fff",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+          flexDirection: "column",
+          height: "500px", 
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+        }}
+      >
       <AuthForm
-        buttonText="Log in"
+        buttonText="Sign In"
         onSubmit={onSubmit}
         title="Sign in to your account"
         fields={fields}
@@ -42,9 +66,10 @@ export default function LogIn() {
         <p>
           Don't have an account? <Link to="/signup">Sign up</Link> 
           
-          <a href="/forgot-password">Forgot Password?</a>
+          <a href="/forgot-password" style={{   float:"right" }}>Forgot Password?</a>
         </p>
       </div>
     </div>
+    </Content>
   );
 }

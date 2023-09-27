@@ -15,7 +15,7 @@ export default function AuthForm({
 
   return (
     <>
-    <div className={styles.formcontainer}>
+    
       <Typography className={styles.title}>{title}</Typography>
       <Form onFinish={onSubmit} autoComplete="off">
         {fields.map(field => (
@@ -25,12 +25,14 @@ export default function AuthForm({
                 placeholder={field.placeholder}
                 prefix={<LockOutlined />}
                 size="large"
+                style={{ height: '50px' }}
               />
             ) : (
               <Input
                 placeholder={field.placeholder}
                 prefix={field.prefix}
                 size="large"
+                style={{ height: '50px' }}
               />
             )}
           </Form.Item>
@@ -47,7 +49,6 @@ export default function AuthForm({
           </Button>
         </Form.Item>
       </Form>
-    </div>
     </>
   );
 }

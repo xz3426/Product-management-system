@@ -8,6 +8,9 @@ const MyFooter_ = () => {
       className="footer"
       style={{
         display: "flex",
+        bottom: "0",
+        position: "fixed",
+        width: "100%",
         justifyContent: "space-between",
         backgroundColor: "#111827",
       }}
