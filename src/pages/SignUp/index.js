@@ -2,7 +2,7 @@ import { MailOutlined } from '@ant-design/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import AuthForm from 'Components/AuthForm';
-import { authUser } from 'app/userSlice';
+import { signUpUser } from 'app/userSlice';
 import { Layout } from "antd";
 const { Content } = Layout;
 export default function SignIn() {
@@ -12,21 +12,33 @@ export default function SignIn() {
   
   const fields = [
     {
+      placeholder: 'id',
+      name: 'authorization',
+      type: 'text',
+      prefix: <MailOutlined />
+    },
+    {
       placeholder: 'Email',
-      name: 'email',
+      name: 'id',
       type: 'text',
       prefix: <MailOutlined />
     },
     {
       placeholder: 'Password',
-      name: 'password',
+      name: 'username',
       type: 'password'
-    }
-  ];
+    },
+    {
+      placeholder: 'profileImageUrl',
+      name: 'profileImageUrl',
+      type: 'text',
+      prefix: <MailOutlined />
+    },
+  ];  
 
   const onSubmit = data => {
     console.log(data);
-    dispatch(authUser(data)).then(() => {
+    dispatch(signUpUser(data)).then(() => {
       navigate(location.state?.from || '/');
     });
   };
