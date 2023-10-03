@@ -13,14 +13,14 @@ import CreateProduct from "./Pages/CreateProduct";
 import Error from "./Pages/Error";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isManager, setIsManager] = useState(true);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isManager, setIsManager] = useState(false);
 
 
   return (
     <>
       <Layout className="layout">
-        <NavBar isSignedIn={false}></NavBar>
+        <NavBar isSignedIn={isSignedIn} setIsSignedIn = {setIsSignedIn}></NavBar>
         <Routes>
           <Route path="/" element={<MyContent />} />
           <Route path="signup" element={<SignUp />} />

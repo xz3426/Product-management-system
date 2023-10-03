@@ -6,7 +6,11 @@ import React, { useState, useEffect } from "react";
 const { Header } = Layout;
 const { Search } = Input;
 
-const NavBar_ = ({ isSignedIn }) => {
+const NavBar_ = ({ isSignedIn, setIsSignedIn}) => {
+  const handleSignOut = () => {
+    setIsSignedIn(false);
+  }
+
   return (
     <div className="nav-bar">
       <Header
@@ -34,7 +38,7 @@ const NavBar_ = ({ isSignedIn }) => {
             <Avatar shape="square" icon={<UserOutlined />} />
           </Badge>
           {isSignedIn ? (
-            <Link to="/SignOut">SignOut</Link>
+            <Link to="/login" onClick={handleSignOut}>SignOut</Link>
           ) : (
             <Link to="/SignIn">SignIn</Link>
           )}
