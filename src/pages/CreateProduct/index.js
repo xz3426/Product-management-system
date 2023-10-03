@@ -1,7 +1,10 @@
 import React from "react";
 import { Button, Space, Input, Select, Form, Layout, Upload } from "antd";
-import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
-
+import {
+  InboxOutlined,
+  UploadOutlined,
+  FileImageTwoTone,
+} from "@ant-design/icons";
 
 const { Search, TextArea } = Input;
 
@@ -88,34 +91,31 @@ const CreateProduct = () => {
             />
           </Form.Item>
 
-          <Space>
+          <Space size="large">
             <Form.Item label="Category">
               <Select
-                defaultValue="meat"
+                placeholder="choose the category"
                 options={categories}
-                // style={{ width: "40%" }}
+                style={{ width: "200px" }}
               />
             </Form.Item>
 
             <Form.Item label="Price">
-              <Input
-                // style={{ width: "40%" }}
-                placeholder="input the price"
-              />
+              <Input style={{ width: "200px" }} placeholder="input the price" />
             </Form.Item>
           </Space>
 
-          <Space>
+          <Space size="large">
             <Form.Item label="In Stock Quantity">
               <Input
-                style={{ width: "50%" }}
+                style={{ width: "200px" }}
                 placeholder="input the quantity"
               />
             </Form.Item>
 
             <Form.Item label="Add Image Link">
               <Space.Compact>
-                <Input defaultValue="Input Image Link Here" />
+                <Input placeholder="Input Image Link Here" />
                 <Button type="primary">Submit</Button>
               </Space.Compact>
             </Form.Item>
@@ -126,24 +126,31 @@ const CreateProduct = () => {
           </div> */}
 
           <Form.Item>
-            <Form.Item
-              name="dragger"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              noStyle
+            <div
+              style={{
+                margin: "0px 50px",
+                height: "15em",
+                backgroundColor: "#f5f3f38f",
+                border: "1px dashed grey",
+                borderRadius: "10px",
+              }}
             >
-              <Upload.Dragger name="files" action="/upload.do">
-                <p className="ant-upload-drag-icon">
-                  <InboxOutlined />
-                </p>
-                <p className="ant-upload-text">
-                  Click or drag file to this area to upload
-                </p>
-                <p className="ant-upload-hint">
-                  Support for a single or bulk upload.
-                </p>
-              </Upload.Dragger>
-            </Form.Item>
+              <p>
+                <FileImageTwoTone
+                  style={{
+                    display: "block",
+                    fontSize: "50px",
+                    alignItems: "center",
+                    paddingTop: "1em",
+                  }}
+                />
+              </p>
+              <p
+                style={{ display: "block", textAlign: "center", color: "grey" }}
+              >
+                Product Image Preview
+              </p>
+            </div>
           </Form.Item>
 
           <br />
