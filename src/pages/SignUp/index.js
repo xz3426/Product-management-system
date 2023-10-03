@@ -1,47 +1,98 @@
-import { MailOutlined } from '@ant-design/icons';
+import { CodeSandboxCircleFilled, MailOutlined } from '@ant-design/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
 import AuthForm from 'Components/AuthForm';
 import { signUpUser } from 'app/userSlice';
-import { Layout } from "antd";
-const { Content } = Layout;
+import { Layout, message} from "antd";
+
+
 export default function SignIn() {
+  const { Content } = Layout;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  
+  const signUpStatus = useSelector((state) => state.user.status);
+  const signUpError = useSelector((state) => state.error.message);  
+
+  const initialRender = useRef(true);
+
+  console.log(initialRender.current);
+  useEffect(()=>{
+    if(!initialRender.current) {
+      console.log(signUpStatus);
+      if (signUpStatus === 'succeeded') {
+        message.success("Sign up successfully");
+        initialRender.current = true;
+        navigate("/signin");
+      } else if (signUpStatus === 'failed'){
+        message.error(signUpError);
+      }
+    }else{
+      if (signUpStatus !== 'succeeded')
+      {initialRender.current = false;}
+    }
+  }, [signUpStatus]);
+
+
   const fields = [
     {
-      placeholder: 'id',
-      name: 'authorization',
-      type: 'text',
-      prefix: <MailOutlined />
-    },
-    {
       placeholder: 'Email',
-      name: 'id',
+      name: 'email',
       type: 'text',
-      prefix: <MailOutlined />
+      prefix: <MailOutlined />,
+      rules: [
+        {
+          required: true,
+          message: 'Please enter your email!',
+          validateTrigger: 'onBlur', // Validate onBlur
+        },
+        {
+          type: 'email',
+          message: 'Invalid email format!',
+          validateTrigger: 'onBlur', // Validate onBlur
+        },
+      ],
     },
     {
       placeholder: 'Password',
-      name: 'username',
-      type: 'password'
+      name: 'password',
+      type: 'password',
+      rules: [
+        {
+          required: true,
+          message: 'Please enter your password!',
+          validateTrigger: 'onBlur', // Validate onBlur
+        },
+        {
+          min: 6,
+          message: 'Password must be at least 6 characters long!',
+          validateTrigger: 'onBlur', // Validate onBlur
+        },
+      ],
     },
-    {
-      placeholder: 'profileImageUrl',
-      name: 'profileImageUrl',
-      type: 'text',
-      prefix: <MailOutlined />
-    },
-  ];  
+  ];
 
-  const onSubmit = data => {
-    console.log(data);
-    dispatch(signUpUser(data)).then(() => {
-      navigate(location.state?.from || '/');
-    });
-  };
+  const checkbox = {
+    name: 'authorization',
+    text: 'Admin'
+  }
+
+
+ 
+  const onSubmit = async data => {
+
+    if (data['authorization']) {
+      data['authorization'] = 'admin';
+    } else {
+      data['authorization'] = 'regular';
+    }
+    data.username = data.email.split("@")[0];
+    
+
+    dispatch(signUpUser(data))
+       
+};
 
   return (
     <Content
@@ -68,19 +119,22 @@ export default function SignIn() {
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
         }}
       >
-      <AuthForm
-        buttonText="Create account"
-        onSubmit={onSubmit}
-        title="Sign up an account"
-        fields={fields}
-      />
-      <div className="form-links">
-        <p>
-          Already have an account? <Link to="/signin">Sign in</Link> 
-          
-        </p>
+         {/* {signUpStatus === 'failed' && (
+          <Message type="error" text="This email is already registered" /> */}
+        {/* )} */}
+        <AuthForm
+          buttonText="Create account"
+          onSubmit={onSubmit}
+          title="Sign up an account"
+          fields={fields}
+          checkbox={checkbox}
+        />
+        <div>
+          <p>
+            Already have an account? <Link to="/signin">Sign in</Link> 
+          </p>
+        </div>
       </div>
-    </div>
     </Content>
   );
 }

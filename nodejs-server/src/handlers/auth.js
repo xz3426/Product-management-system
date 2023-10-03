@@ -16,7 +16,20 @@ const signup = async (req, res, next) => {
       token,
     });
   } catch (err) {
-    console.log(err);
+    if (err.name === 'MongoServerError' && err.code === 11000) {
+      // Duplicate key error
+      console.log(err.name);
+      const error = {
+        message: 'This email is already registered.',
+        ok: false
+      }
+      
+      return res.status(400).json({ error });
+    } else {
+      // Other errors
+      console.error(err);
+      return res.status(500).json({ error: 'Internal server error.' });
+    }
   }
 };
 

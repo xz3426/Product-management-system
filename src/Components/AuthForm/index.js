@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Typography } from 'antd';
+import { Button, Form, Input, Typography, Checkbox } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import styles from './style.module.css';
@@ -9,9 +9,11 @@ export default function AuthForm({
   onSubmit,
   title,
   fields,
+  checkbox,
   errors
 }) {
   const { status } = useSelector(state => state.user);
+ 
 
   return (
     <>
@@ -37,6 +39,24 @@ export default function AuthForm({
             )}
           </Form.Item>
         ))}
+        
+        {checkbox !== undefined && 
+        (
+          <Form.Item
+            key={checkbox.name}
+            name={checkbox.name}
+            valuePropName="checked"
+            initialValue={false}
+          >
+            <Checkbox
+
+            >
+              {checkbox.text}
+            </Checkbox>
+          </Form.Item>
+        )
+       }
+
         <Form.Item>
           <Button
             type="primary"
