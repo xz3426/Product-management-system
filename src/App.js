@@ -8,9 +8,8 @@ import {
 } from "./Components/LandingPageComponents";
 import { Layout } from "antd";
 import SignUp from './Pages/SignUp';
-import LogIn from './Pages/LogIn';
+import SignIn from './Pages/SignIn';
 import CreateProduct from "./Pages/CreateProduct";
-import Error from "./Pages/Error";
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(true);
@@ -24,9 +23,8 @@ function App() {
         <Routes>
           <Route path="/" element={<MyContent />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="login" element={<LogIn />} />
-          <Route path="createProduct" element={isManager ? <CreateProduct /> : <Navigate to="/"/>} />
-          <Route path="error" element={<Error />} />
+          <Route path="signin" element={<SignIn />} />
+          <Route path="createProduct" element={<CreateProduct />} />
         </Routes>
         <MyFooter></MyFooter>
       </Layout>
