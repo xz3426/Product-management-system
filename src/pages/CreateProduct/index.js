@@ -1,7 +1,17 @@
 import React from "react";
-import { Button, Space, Input, Select, Form, Layout, Upload } from "antd";
+import {
+  Button,
+  Space,
+  Input,
+  Select,
+  Form,
+  Layout,
+  Upload,
+  InputNumber,
+} from "antd";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
-
+import { useDispatch, useSelector } from "react-redux";
+import { createProductsAction } from "app/productSlice";
 
 const { Search, TextArea } = Input;
 
@@ -45,27 +55,39 @@ const container = {
 };
 
 const CreateProduct = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const { status } = useSelector((state) => state.products);
+  const onSubmit = async (data) => {
+    dispatch(createProductsAction(data));
+  };
 
   return (
     <div style={{ backgroundColor: "#f5f3f38f" }}>
       <h1 style={title}>Create Product</h1>
       <div style={container}>
-        <Form form={form} layout="vertical" autoComplete="off">
+        <Form
+          onFinish={onSubmit}
+          form={form}
+          layout="vertical"
+          autoComplete="off"
+        >
           <Form.Item
-            name="Product name"
-            label="Product name"
+            name="productName"
+            label="Product Name"
             rules={[
-              //   {
-              //     required: true,
-              //   },
+              {
+                required: true,
+                message: "Please enter your product Name",
+              },
               {
                 type: "text",
                 warningOnly: true,
               },
               {
                 type: "string",
-                min: 1,
+                min: 10,
+                message: "Product Name must be at least 10 characters long",
               },
             ]}
           >
@@ -75,7 +97,16 @@ const CreateProduct = () => {
             />
           </Form.Item>
 
-          <Form.Item label="Product decription">
+          <Form.Item
+            name="description"
+            label="Description"
+            rules={[
+              {
+                required: true,
+                message: "Please enter your product description",
+              },
+            ]}
+          >
             <Input.TextArea
               showCount
               maxLength={100}
@@ -97,23 +128,35 @@ const CreateProduct = () => {
               />
             </Form.Item>
 
-            <Form.Item label="Price">
-              <Input
+            <Form.Item
+              name="price"
+              label="Price"
+              rules={[{ required: true, message: "Please enter your price!" }]}
+            >
+              <InputNumber
                 // style={{ width: "40%" }}
+                min={0}
                 placeholder="input the price"
               />
             </Form.Item>
           </Space>
 
           <Space>
-            <Form.Item label="In Stock Quantity">
-              <Input
+            <Form.Item
+              name="quantity"
+              label="In Stock Quantity"
+              rules={[
+                { required: true, message: "Please enter your quantity!" },
+              ]}
+            >
+              <InputNumber
+                min={1}
                 style={{ width: "50%" }}
                 placeholder="input the quantity"
               />
             </Form.Item>
 
-            <Form.Item label="Add Image Link">
+            <Form.Item name="imgLink" label="Add Image Link">
               <Space.Compact>
                 <Input defaultValue="Input Image Link Here" />
                 <Button type="primary">Submit</Button>
@@ -127,7 +170,6 @@ const CreateProduct = () => {
 
           <Form.Item>
             <Form.Item
-              name="dragger"
               valuePropName="fileList"
               getValueFromEvent={normFile}
               noStyle
@@ -149,7 +191,9 @@ const CreateProduct = () => {
           <br />
 
           <Form.Item>
-            <Button type="primary">Add Product</Button>
+            <Button type="primary" htmlType="submit">
+              Add Product
+            </Button>
           </Form.Item>
         </Form>
       </div>
