@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { creatProduct } = require("../handlers/product");
+const {
+  creatProduct,
+  getAllProducts,
+  getProductById,
+  updateProductById,
+} = require("../handlers/product");
 
 router.post("/product", creatProduct);
-// router.get("/products", getProducts);
-// router.get("/product/:id", getProductById);
-// router.put("/product/:id", editProduct);
+router.get("/products", getAllProducts);
+router.get("/product/:id", getProductById);
+router.put("/product/:id", updateProductById);
 
 module.exports = router;
