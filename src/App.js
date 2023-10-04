@@ -6,9 +6,9 @@ import {
   MyContent,
 } from "./Components/LandingPageComponents";
 import { Layout } from "antd";
-import SignUp from './Pages/SignUp';
-import LogIn from './Pages/LogIn';
-import CreateProduct from "./Pages/CreateProduct";
+import SignUp from 'pages/SignUp';
+import SignIn from 'pages/SignIn';
+import CreateProduct from "pages/CreateProduct";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MyContent />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="login" element={<LogIn />} />
+          <Route path="signin" element={<SignIn />} />
           <Route path="createProduct" element={<CreateProduct />} />
         </Routes>
         <MyFooter></MyFooter>
