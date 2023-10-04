@@ -13,8 +13,8 @@ import CreateProduct from "./Pages/CreateProduct";
 import Error from "./Pages/Error";
 
 function App() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [isManager, setIsManager] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(true);
+  const [isManager, setIsManager] = useState(true);
 
 
   return (
