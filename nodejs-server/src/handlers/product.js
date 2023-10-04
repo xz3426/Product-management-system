@@ -43,7 +43,15 @@ const getProductById = async (req, res, next) => {
 const updateProductById = async (req, res, next) => {
   try {
     const productId = req.id;
-    const product = await db.Product.findByIdAndUpdate(productId, req.body);
+    const product = await db.Product.findByIdAndUpdate(productId, req.body, {
+      new: true, // This option returns the modified document rather than the original.
+      runValidators: true, // Validates the update operation against the model's schema.);
+    });
+
+    if (!product) {
+      return res.status(404).send({ message: "Product not found" });
+    }
+
     return res.status(200).json(product);
   } catch (err) {
     return res.status(400).json({
