@@ -11,14 +11,13 @@ import {
 import ProtectedRoute from "./Components/ProtectedRoute";
 import ProductDetail from "./Components/ProductDetail";
 import { Layout } from "antd";
-import SignUp from "./Pages/SignUp";
-import SignIn from "./Pages/SignIn";
-import CreateProduct from "./Pages/CreateProduct";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import CreateProduct from "./pages/CreateProduct";
 
 const { Header, Footer, Content } = Layout;
 
 function App() {
-
   return (
     <>
       <Layout className="layout">
