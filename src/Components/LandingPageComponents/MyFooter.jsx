@@ -11,6 +11,7 @@ const MyFooter_ = () => {
         bottom: "0",
         position: "fixed",
         width: "100%",
+        marginLeft:"-50px",
         justifyContent: "space-between",
         backgroundColor: "#111827",
       }}

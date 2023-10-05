@@ -1,8 +1,12 @@
 import React from "react";
 import { Button, Space, Input, Select, Form, Layout, Upload } from "antd";
-import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+import {
+  InboxOutlined,
+  UploadOutlined,
+  FileImageTwoTone,
+} from "@ant-design/icons";
 
-
+const { Content } = Layout;
 const { Search, TextArea } = Input;
 
 const categories = [
@@ -48,112 +52,123 @@ const CreateProduct = () => {
   const [form] = Form.useForm();
 
   return (
-    <div style={{ backgroundColor: "#f5f3f38f" }}>
-      <h1 style={title}>Create Product</h1>
-      <div style={container}>
-        <Form form={form} layout="vertical" autoComplete="off">
-          <Form.Item
-            name="Product name"
-            label="Product name"
-            rules={[
-              //   {
-              //     required: true,
-              //   },
-              {
-                type: "text",
-                warningOnly: true,
-              },
-              {
-                type: "string",
-                min: 1,
-              },
-            ]}
-          >
-            <Input
-              style={{ width: "100%" }}
-              placeholder="input your product name"
-            />
-          </Form.Item>
-
-          <Form.Item label="Product decription">
-            <Input.TextArea
-              showCount
-              maxLength={100}
-              style={{
-                height: 120,
-                marginBottom: 24,
-              }}
-              //   onChange={onChange}
-              placeholder="Add Product Description Here, No More Than 100 words"
-            />
-          </Form.Item>
-
-          <Space>
-            <Form.Item label="Category">
-              <Select
-                defaultValue="meat"
-                options={categories}
-                // style={{ width: "40%" }}
-              />
-            </Form.Item>
-
-            <Form.Item label="Price">
+    <Content>
+      <div style={{ backgroundColor: "#f5f3f38f" }}>
+        <h1 style={title}>Create Product</h1>
+        <div style={container}>
+          <Form form={form} layout="vertical" autoComplete="off">
+            <Form.Item
+              name="Product name"
+              label="Product name"
+              rules={[
+                //   {
+                //     required: true,
+                //   },
+                {
+                  type: "text",
+                  warningOnly: true,
+                },
+                {
+                  type: "string",
+                  min: 1,
+                },
+              ]}
+            >
               <Input
-                // style={{ width: "40%" }}
-                placeholder="input the price"
-              />
-            </Form.Item>
-          </Space>
-
-          <Space>
-            <Form.Item label="In Stock Quantity">
-              <Input
-                style={{ width: "50%" }}
-                placeholder="input the quantity"
+                style={{ width: "100%" }}
+                placeholder="input your product name"
               />
             </Form.Item>
 
-            <Form.Item label="Add Image Link">
-              <Space.Compact>
-                <Input defaultValue="Input Image Link Here" />
-                <Button type="primary">Submit</Button>
-              </Space.Compact>
+            <Form.Item label="Product decription">
+              <Input.TextArea
+                showCount
+                maxLength={100}
+                style={{
+                  height: 120,
+                  marginBottom: 24,
+                }}
+                //   onChange={onChange}
+                placeholder="Add Product Description Here, No More Than 100 words"
+              />
             </Form.Item>
-          </Space>
 
-          {/* <div className="image_frame">
+            <Space size="large">
+              <Form.Item label="Category">
+                <Select
+                  placeholder="choose the category"
+                  options={categories}
+                  style={{ width: "200px" }}
+                />
+              </Form.Item>
+
+              <Form.Item label="Price">
+                <Input
+                  style={{ width: "200px" }}
+                  placeholder="input the price"
+                />
+              </Form.Item>
+            </Space>
+
+            <Space size="large">
+              <Form.Item label="In Stock Quantity">
+                <Input
+                  style={{ width: "200px" }}
+                  placeholder="input the quantity"
+                />
+              </Form.Item>
+
+              <Form.Item label="Add Image Link">
+                <Space.Compact>
+                  <Input placeholder="Input Image Link Here" />
+                  <Button type="primary">Submit</Button>
+                </Space.Compact>
+              </Form.Item>
+            </Space>
+
+            {/* <div className="image_frame">
             <div className="image_frame_name">Image Preview!</div>
           </div> */}
 
-          <Form.Item>
-            <Form.Item
-              name="dragger"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              noStyle
-            >
-              <Upload.Dragger name="files" action="/upload.do">
-                <p className="ant-upload-drag-icon">
-                  <InboxOutlined />
+            <Form.Item>
+              <div
+                style={{
+                  margin: "0px 50px",
+                  height: "15em",
+                  backgroundColor: "#f5f3f38f",
+                  border: "1px dashed grey",
+                  borderRadius: "10px",
+                }}
+              >
+                <p>
+                  <FileImageTwoTone
+                    style={{
+                      display: "block",
+                      fontSize: "50px",
+                      alignItems: "center",
+                      paddingTop: "1em",
+                    }}
+                  />
                 </p>
-                <p className="ant-upload-text">
-                  Click or drag file to this area to upload
+                <p
+                  style={{
+                    display: "block",
+                    textAlign: "center",
+                    color: "grey",
+                  }}
+                >
+                  Product Image Preview
                 </p>
-                <p className="ant-upload-hint">
-                  Support for a single or bulk upload.
-                </p>
-              </Upload.Dragger>
+              </div>
             </Form.Item>
-          </Form.Item>
-
-          <br />
-
-          <Form.Item>
-            <Button type="primary">Add Product</Button>
-          </Form.Item>
-        </Form>
+            <br />
+            <Form.Item>
+              <Button type="primary">Add Product</Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
-    </div>
+    </Content>
   );
 };
 
