@@ -24,9 +24,10 @@ const ProductDetail = () => {
   //   const { product } = useSelector((state) => state.product);
   const product = {
     category: "electronic product",
-    imgLink: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS4jC9GWQazavYcMKTwcUF1Wae7BWWm9X0ZYyGfE4hrwgUZKK4hSELEEX-1Bg",
+    imgLink:
+      "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS4jC9GWQazavYcMKTwcUF1Wae7BWWm9X0ZYyGfE4hrwgUZKK4hSELEEX-1Bg",
     productName: "iPhone 14",
-    quantity:"70",
+    quantity: "70",
     price: "999",
     description:
       "Apple iPhone 11, 64GB, Black - Unlocked (Renewed) · 4.3 out of 5 stars",

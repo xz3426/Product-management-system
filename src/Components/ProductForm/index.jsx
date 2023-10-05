@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Space, Input, Select, Form, Layout, Upload } from "antd";
+import { Button, Space, Input, Select, Form, Layout, InputNumber, Upload } from "antd";
 import {
   FileImageTwoTone,
 } from "@ant-design/icons";
@@ -10,7 +10,7 @@ const { Search, TextArea } = Input;
 const fields = {
     productName: {
       placeholder: "Input your product name",
-      name: "Product Name",
+      name: "productName",
       type: "text",
       rules: [
         {
@@ -24,14 +24,15 @@ const fields = {
         },
         {
           type: "string",
-          min: 1,
+          min: 5,
+          message: "Product Name must be at least 10 characters long",
         },
       ],
     },
 
     description: {
       placeholder: "Add product description here, no more than 200 words",
-      name: "Product Description",
+      name: "description",
       type: "text",
       rules: [
         {
@@ -44,13 +45,12 @@ const fields = {
 
     category: {
       placeholder: "Choose the category",
-      name: "Category",
+      name: "category",
       type: "string",
       rules: [
         {
           required: true,
-          message: "Please choose your product catagory!",
-          validateTrigger: "onBlur", // Validate onBlur
+          message: "Please enter your product's category",
         },
       ],
       categories: [
@@ -71,34 +71,31 @@ const fields = {
 
     price: {
       placeholder: "Input the price",
-      name: "Price",
+      name: "price",
       type: "number",
       rules: [
         {
           required: true,
           message: "Please enter your product price!",
-          validateTrigger: "onBlur", // Validate onBlur
         },
       ],
     },
 
     quantity: {
       placeholder: "Input the quantity",
-      name: "In Stock Quantity",
+      name: "quantity",
       type: "number",
-      require: true,
       rules: [
         {
           required: true,
           message: "Please enter your product quantity!",
-          validateTrigger: "onBlur", // Validate onBlur
         },
       ],
     },
 
     imgLink: {
       placeholder: "Input Image Link Here",
-      name: "Add Image Link",
+      name: "imgLink",
       type: "url",
       rules: [
         {
@@ -109,22 +106,6 @@ const fields = {
       ],
     },
   };
-
-
-// const categories = [
-//   {
-//     value: "meat",
-//     label: "meat",
-//   },
-//   {
-//     value: "drink",
-//     label: "drink",
-//   },
-//   {
-//     value: "fruit",
-//     label: "fruit",
-//   },
-// ];
 
 
 const title = {
@@ -143,18 +124,18 @@ const container = {
   "font-family": "Arial, sans-serif",
 };
 
-const ProductForm = (
+const ProductForm = ({
   buttonText,
   onSubmit,
-  titleText,
-) => {
+  titleText
+  }) => {
 
   return (
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f" }}>
         <h1 style={title}>
-            {/* {titleText} */}
-            Edit Product
+            {titleText}
+            {/* Edit Product */}
         </h1>
 
         <div style={container}>
@@ -162,8 +143,8 @@ const ProductForm = (
             <Form.Item
               key={fields.productName.name}
               name={fields.productName.name}
-              label={fields.productName.name}
-            //   rules={fields.productName.rules}
+              label="Product Name"
+              rules={fields.productName.rules}
             >
               <Input
                 style={{ width: "100%" }}
@@ -174,8 +155,8 @@ const ProductForm = (
             <Form.Item 
               key={fields.description.name}
               name={fields.description.name}
-              label={fields.description.name}
-            //   rules={fields.description.rules}
+              label="Product Description"
+              rules={fields.description.rules}
             >
               <Input.TextArea
                 showCount
@@ -192,8 +173,8 @@ const ProductForm = (
               <Form.Item   
                 key={fields.category.name}
                 name={fields.category.name}
-                label={fields.category.name}
-                // rules={fields.catagory.rules}
+                label="Category"
+                rules={fields.category.rules}
               >
                 <Select
                   placeholder={fields.category.placeholder}
@@ -205,11 +186,12 @@ const ProductForm = (
               <Form.Item   
                 key={fields.price.name}
                 name={fields.price.name}
-                label={fields.price.name}
-                // rules={fields.price.rules}
+                label="Price"
+                rules={fields.price.rules}
               >
                 <Input
                   style={{ width: "200px" }}
+                  min={0}
                   placeholder={fields.price.placeholder}
                 />
               </Form.Item>
@@ -219,8 +201,8 @@ const ProductForm = (
               <Form.Item 
                 key={fields.quantity.name}
                 name={fields.quantity.name}
-                label={fields.quantity.name}
-                // rules={fields.quantity.rules}
+                label="In Stock Quantity"
+                rules={fields.quantity.rules}
               >
                 <Input
                   style={{ width: "200px" }}
@@ -231,8 +213,8 @@ const ProductForm = (
               <Form.Item 
                 key={fields.imgLink.name}
                 name={fields.imgLink.name}
-                label={fields.imgLink.name}
-                // rules={fields.imgLink.rules}
+                label="Add Image Link"
+                rules={fields.imgLink.rules}
               >
                 <Space.Compact>
                   <Input placeholder={fields.imgLink.placeholder} />
@@ -240,7 +222,6 @@ const ProductForm = (
                 </Space.Compact>
               </Form.Item>
             </Space>
-
 
             <Form.Item>
               <div
@@ -276,8 +257,7 @@ const ProductForm = (
             <br />
             <Form.Item>
               <Button type="primary" htmlType="submit">
-                {/* {buttonText} */}
-                Edit
+                {buttonText}
               </Button>
             </Form.Item>
           </Form>
