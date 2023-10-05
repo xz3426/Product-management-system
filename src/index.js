@@ -2,15 +2,23 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import { Provider } from 'react-redux';
+import { StyleProvider } from '@ant-design/cssinjs';
 import reportWebVitals from "./reportWebVitals";
+import store from 'app/store';
+import { setCurrentUser } from 'app/userSlice';
 import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
+    <StyleProvider hashPriority="low">
     <BrowserRouter>
       <App />
     </BrowserRouter>
+    </StyleProvider>
+  </Provider>
   </React.StrictMode>
 );
 
