@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { Tag, Layout, Space, Image, InputNumber, Button } from "antd";
-import { useSelector } from "react-redux";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const { Content } = Layout;
@@ -54,7 +52,7 @@ const ProductDetail = () => {
                 </Space>
               </h2>
               <p>{product.description}</p>
-              <br/>
+              <br />
               <div>
                 <Space>
                   <InputNumber
