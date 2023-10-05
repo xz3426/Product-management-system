@@ -132,7 +132,16 @@ const CreateProduct = () => {
           </Form.Item>
 
           <Space>
-            <Form.Item label="Category">
+            <Form.Item
+              name="category"
+              label="Category"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your product's category",
+                },
+              ]}
+            >
               <Select
                 defaultValue="meat"
                 options={categories}
