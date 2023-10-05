@@ -6,15 +6,24 @@ import React, { useState, useEffect } from "react";
 const { Header } = Layout;
 const { Search } = Input;
 
-const NavBar_ = ({ isSignedIn }) => {
+// const NavBar_ = ({ isSignedIn, setIsSignedIn}) => {
+  // const handleSignOut = () => {
+  //   setIsSignedIn(false);
+  // }
+
+const NavBar_ = () => {
   return (
     <div className="nav-bar">
       <Header
         style={{
           display: "flex",
+          position: "fixed",
+          width: "100%",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "8px 64px 8px 64px",
+          marginLeft:"-50px",
+          // padding: "8px 64px 8px 64px",
+          zIndex: "1000"
         }}
       >
         <a>
@@ -33,11 +42,8 @@ const NavBar_ = ({ isSignedIn }) => {
           <Badge>
             <Avatar shape="square" icon={<UserOutlined />} />
           </Badge>
-          {isSignedIn ? (
-            <Link to="/SignOut">SignOut</Link>
-          ) : (
-            <Link to="/SignIn">SignIn</Link>
-          )}
+          <Link to="/SignIn">SignIn</Link>
+          
         </div>
         <Link>
           <div to="/cart">

@@ -10,10 +10,14 @@ import {
   InputNumber,
   message,
 } from "antd";
-import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+import {
+  InboxOutlined,
+  UploadOutlined,
+  FileImageTwoTone,
+} from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { createProductsAction } from "app/productSlice";
-
+const { Content } = Layout;
 const { Search, TextArea } = Input;
 
 const categories = [
@@ -75,41 +79,42 @@ const CreateProduct = () => {
   }
 
   return (
-    <div style={{ backgroundColor: "#f5f3f38f" }}>
-      <h1 style={title}>Create Product</h1>
-      <div style={container}>
-        <Form
+    <Content>
+      <div style={{ backgroundColor: "#f5f3f38f" }}>
+        <h1 style={title}>Create Product</h1>
+        <div style={container}>
+          <Form
           onFinish={onSubmit}
           form={form}
           layout="vertical"
           autoComplete="off"
         >
-          <Form.Item
-            name="productName"
-            label="Product Name"
-            rules={[
-              {
-                required: true,
-                message: "Please enter your product Name",
+            <Form.Item
+              name="productName"
+              label="Product Name"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your product Name",
               },
-              {
-                type: "text",
-                warningOnly: true,
-              },
-              {
-                type: "string",
-                min: 10,
+                {
+                  type: "text",
+                  warningOnly: true,
+                },
+                {
+                  type: "string",
+                  min: 10,
                 message: "Product Name must be at least 10 characters long",
-              },
-            ]}
-          >
-            <Input
-              style={{ width: "100%" }}
-              placeholder="input your product name"
-            />
-          </Form.Item>
+                },
+              ]}
+            >
+              <Input
+                style={{ width: "100%" }}
+                placeholder="input your product name"
+              />
+            </Form.Item>
 
-          <Form.Item
+            <Form.Item
             name="description"
             label="Description"
             rules={[
@@ -119,20 +124,20 @@ const CreateProduct = () => {
               },
             ]}
           >
-            <Input.TextArea
-              showCount
-              maxLength={100}
-              style={{
-                height: 120,
-                marginBottom: 24,
-              }}
-              //   onChange={onChange}
-              placeholder="Add Product Description Here, No More Than 100 words"
-            />
-          </Form.Item>
+              <Input.TextArea
+                showCount
+                maxLength={100}
+                style={{
+                  height: 120,
+                  marginBottom: 24,
+                }}
+                //   onChange={onChange}
+                placeholder="Add Product Description Here, No More Than 100 words"
+              />
+            </Form.Item>
 
-          <Space>
-            <Form.Item
+            <Space size="large">
+              <Form.Item
               name="category"
               label="Category"
               rules={[
@@ -142,70 +147,83 @@ const CreateProduct = () => {
                 },
               ]}
             >
-              <Select
-                defaultValue="meat"
-                options={categories}
-                // style={{ width: "40%" }}
-              />
-            </Form.Item>
+                <Select
+                  placeholder="choose the category"
+                  options={categories}
+                  style={{ width: "200px" }}
+                />
+              </Form.Item>
 
-            <Form.Item
+              <Form.Item
               name="price"
               label="Price"
               rules={[{ required: true, message: "Please enter your price!" }]}
             >
-              <InputNumber
-                // style={{ width: "40%" }}
+                <InputNumber
+                  style={{ width: "200px" }}
                 min={0}
-                placeholder="input the price"
-              />
-            </Form.Item>
-          </Space>
+                  placeholder="input the price"
+                />
+              </Form.Item>
+            </Space>
 
-          <Space>
-            <Form.Item
+            <Space size="large">
+              <Form.Item
               name="quantity"
               label="In Stock Quantity"
               rules={[
                 { required: true, message: "Please enter your quantity!" },
               ]}
             >
-              <InputNumber
+                <InputNumber
                 min={1}
-                style={{ width: "50%" }}
-                placeholder="input the quantity"
-              />
-            </Form.Item>
+                  style={{ width: "200px" }}
+                  placeholder="input the quantity"
+                />
+              </Form.Item>
 
-            <Form.Item name="imgLink" label="Add Image Link">
-              <Space.Compact>
-                <Input defaultValue="Input Image Link Here" />
-                <Button type="primary">Submit</Button>
-              </Space.Compact>
-            </Form.Item>
-          </Space>
+              <Form.Item name="imgLink" label="Add Image Link">
+                <Space.Compact>
+                  <Input placeholder="Input Image Link Here" />
+                  <Button type="primary">Submit</Button>
+                </Space.Compact>
+              </Form.Item>
+            </Space>
 
-          {/* <div className="image_frame">
+            {/* <div className="image_frame">
             <div className="image_frame_name">Image Preview!</div>
           </div> */}
 
-          <Form.Item>
-            <Form.Item
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              noStyle
-            >
-              <Upload.Dragger name="files" action="/upload.do">
-                <p className="ant-upload-drag-icon">
-                  <InboxOutlined />
+            <Form.Item>
+              <div
+                style={{
+                  margin: "0px 50px",
+                  height: "15em",
+                  backgroundColor: "#f5f3f38f",
+                  border: "1px dashed grey",
+                  borderRadius: "10px",
+                }}
+              >
+                <p>
+                  <FileImageTwoTone
+                    style={{
+                      display: "block",
+                      fontSize: "50px",
+                      alignItems: "center",
+                      paddingTop: "1em",
+                    }}
+                  />
                 </p>
-                <p className="ant-upload-text">
-                  Click or drag file to this area to upload
+                <p
+                  style={{
+                    display: "block",
+                    textAlign: "center",
+                    color: "grey",
+                  }}
+                >
+                  Product Image Preview
                 </p>
-                <p className="ant-upload-hint">
-                  Support for a single or bulk upload.
-                </p>
-              </Upload.Dragger>
+              </div>
             </Form.Item>
           </Form.Item>
 
