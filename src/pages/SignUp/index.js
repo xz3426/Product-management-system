@@ -5,7 +5,6 @@ import AuthForm from 'Components/AuthForm';
 import { Layout, message} from "antd";
 import { signUp } from 'services/auth';
 
-
 export default function SignIn() {
   const { Content } = Layout;
   const navigate = useNavigate();
@@ -22,58 +21,59 @@ export default function SignIn() {
     }
   }, [signUpStatus, navigate]);
 
-
   const fields = [
     {
-      placeholder: 'Email',
-      name: 'email',
-      type: 'text',
+      placeholder: "Email",
+      name: "email",
+      type: "text",
       prefix: <MailOutlined />,
       rules: [
         {
           required: true,
-          message: 'Please enter your email!',
-          validateTrigger: 'onBlur', // Validate onBlur
+          message: "Please enter your email!",
+          validateTrigger: "onBlur", // Validate onBlur
         },
         {
-          type: 'email',
-          message: 'Invalid email format!',
-          validateTrigger: 'onBlur', // Validate onBlur
+          type: "email",
+          message: "Invalid email format!",
+          validateTrigger: "onBlur", // Validate onBlur
         },
       ],
     },
     {
-      placeholder: 'Password',
-      name: 'password',
-      type: 'password',
+      placeholder: "Password",
+      name: "password",
+      type: "password",
       rules: [
         {
           required: true,
-          message: 'Please enter your password!',
-          validateTrigger: 'onBlur', // Validate onBlur
+          message: "Please enter your password!",
+          validateTrigger: "onBlur", // Validate onBlur
         },
         {
           min: 6,
-          message: 'Password must be at least 6 characters long!',
-          validateTrigger: 'onBlur', // Validate onBlur
+          message: "Password must be at least 6 characters long!",
+          validateTrigger: "onBlur", // Validate onBlur
         },
       ],
     },
   ];
 
   const checkbox = {
+
     name: 'authorization',
     text: 'Admin'
   }
  
-  const onSubmit = async data => {
 
-    if (data['authorization']) {
-      data['authorization'] = 'admin';
+  const onSubmit = async (data) => {
+    if (data["authorization"]) {
+      data["authorization"] = "admin";
     } else {
-      data['authorization'] = 'regular';
+      data["authorization"] = "regular";
     }
     data.username = data.email.split("@")[0];
+
     try{
       await signUp(data);
       setsignUpStatus('succeeded');
@@ -86,17 +86,16 @@ export default function SignIn() {
 
   return (
     <Content
-    style={{
-      padding: "0 50px",
-      minHeight: "100vh",
-      backgroundColor: "lightgrey",
-      display: "flex", // Add display flex
+      style={{
+        padding: "0 50px",
+        minHeight: "100vh",
+        backgroundColor: "lightgrey",
+        display: "flex", // Add display flex
         // alignItems: "center", // Center vertically
         justifyContent: "center", // Center horizontally
-    }}
+      }}
     >
-    
-    <div
+      <div
         style={{
           width: "700px",
           margin: "150px auto 0", // Add a 200px margin from the top
@@ -105,11 +104,11 @@ export default function SignIn() {
           border: "1px solid #ccc",
           borderRadius: "5px",
           flexDirection: "column",
-          height: "500px", 
+          height: "500px",
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
         }}
       >
-         {/* {signUpStatus === 'failed' && (
+        {/* {signUpStatus === 'failed' && (
           <Message type="error" text="This email is already registered" /> */}
         {/* )} */}
         <AuthForm
@@ -121,7 +120,7 @@ export default function SignIn() {
         />
         <div>
           <p>
-            Already have an account? <Link to="/signin">Sign in</Link> 
+            Already have an account? <Link to="/signin">Sign in</Link>
           </p>
         </div>
       </div>

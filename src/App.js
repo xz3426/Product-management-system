@@ -1,16 +1,22 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import "./App.css";
 import {
   NavBar,
   MyFooter,
   MyContent,
 } from "./Components/LandingPageComponents";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import ProductDetail from "./Components/ProductDetail";
 import { Layout } from "antd";
-import SignUp from 'pages/SignUp';
-import SignIn from 'pages/SignIn';
-import ChangePassword from 'pages/ChangePassword';
-import CreateProduct from "pages/CreateProduct";
-import { setCurrentUser } from "app/userSlice";
+
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import ChangePassword from './pages/ChangePassword';
+import CreateProduct from "./pages/CreateProduct";
+import { setCurrentUser } from "./app/userSlice";
 import store from "app/store";
 import jwtDecode from "jwt-decode";
 
@@ -19,19 +25,39 @@ if (localStorage.getItem("token")) {
   store.dispatch(setCurrentUser(jwtDecode(localStorage.getItem("token"))));
 }
 
+
+const { Header, Footer, Content } = Layout;
+
+
 function App() {
   return (
     <>
       <Layout className="layout">
-        <NavBar isSignedIn={false}></NavBar>
-        <Routes>
-          <Route path="/" element={<MyContent />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="signin" element={<SignIn />} />
-          <Route path="changepassword" element={<ChangePassword />} />
-          <Route path="createProduct" element={<CreateProduct />} />
-        </Routes>
-        <MyFooter></MyFooter>
+        <Header>
+          <NavBar></NavBar>
+        </Header>
+
+        <Content>
+          <Routes>
+            <Route path="/" element={<MyContent />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="signin" element={<SignIn />} />
+            <Route path="changepassword" element={<ChangePassword />} />
+            <Route
+              path="createProduct"
+              element={
+                <ProtectedRoute>
+                  <CreateProduct />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="productdetail" element={<ProductDetail />} />
+          </Routes>
+        </Content>
+
+        <Footer>
+          <MyFooter></MyFooter>
+        </Footer>
       </Layout>
     </>
   );

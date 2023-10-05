@@ -8,6 +8,7 @@ import { logOutUser } from 'app/userSlice';
 const { Header } = Layout;
 const { Search } = Input;
 
+
 const NavBar_ = () => {
   const isSignedIn = useSelector((state) => state.user.isAuthenticated);
   const dispatch = useDispatch();
@@ -20,9 +21,13 @@ const NavBar_ = () => {
       <Header
         style={{
           display: "flex",
+          position: "fixed",
+          width: "100%",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "8px 64px 8px 64px",
+          marginLeft:"-50px",
+          // padding: "8px 64px 8px 64px",
+          zIndex: "1000"
         }}
       >
         <a>
