@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Typography } from 'antd';
+import { Button, Form, Input, Typography, Checkbox } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import styles from './style.module.css';
@@ -9,13 +9,15 @@ export default function AuthForm({
   onSubmit,
   title,
   fields,
+  checkbox,
   errors
 }) {
   const { status } = useSelector(state => state.user);
+ 
 
   return (
     <>
-    <div className={styles.formcontainer}>
+    
       <Typography className={styles.title}>{title}</Typography>
       <Form onFinish={onSubmit} autoComplete="off">
         {fields.map(field => (
@@ -25,16 +27,36 @@ export default function AuthForm({
                 placeholder={field.placeholder}
                 prefix={<LockOutlined />}
                 size="large"
+                style={{ height: '50px' }}
               />
             ) : (
               <Input
                 placeholder={field.placeholder}
                 prefix={field.prefix}
                 size="large"
+                style={{ height: '50px' }}
               />
             )}
           </Form.Item>
         ))}
+        
+        {checkbox !== undefined && 
+        (
+          <Form.Item
+            key={checkbox.name}
+            name={checkbox.name}
+            valuePropName="checked"
+            initialValue={false}
+          >
+            <Checkbox
+
+            >
+              {checkbox.text}
+            </Checkbox>
+          </Form.Item>
+        )
+       }
+
         <Form.Item>
           <Button
             type="primary"
@@ -47,7 +69,6 @@ export default function AuthForm({
           </Button>
         </Form.Item>
       </Form>
-    </div>
     </>
   );
 }
