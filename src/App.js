@@ -8,6 +8,7 @@ import {
 import { Layout } from "antd";
 import SignUp from 'pages/SignUp';
 import SignIn from 'pages/SignIn';
+import ChangePassword from 'pages/ChangePassword';
 import CreateProduct from "pages/CreateProduct";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<MyContent />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="signin" element={<SignIn />} />
+          <Route path="changepassword" element={<ChangePassword />} />
           <Route path="createProduct" element={<CreateProduct />} />
         </Routes>
         <MyFooter></MyFooter>

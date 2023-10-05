@@ -1,38 +1,26 @@
-import { CodeSandboxCircleFilled, MailOutlined } from '@ant-design/icons';
+import { MailOutlined } from '@ant-design/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import AuthForm from 'Components/AuthForm';
-import { signUpUser } from 'app/userSlice';
 import { Layout, message} from "antd";
+import { signUp } from 'services/auth';
 
 
 export default function SignIn() {
   const { Content } = Layout;
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
-  const signUpStatus = useSelector((state) => state.user.status);
-  const signUpError = useSelector((state) => state.error.message);  
+  const [signUpStatus,setsignUpStatus] = useState('idle');
+  const [signUpError,setsignUpError] = useState('');
 
-  const initialRender = useRef(true);
-
-  console.log(initialRender.current);
-  useEffect(()=>{
-    if(!initialRender.current) {
-      console.log(signUpStatus);
-      if (signUpStatus === 'succeeded') {
-        message.success("Sign up successfully");
-        initialRender.current = true;
-        navigate("/signin");
-      } else if (signUpStatus === 'failed'){
-        message.error(signUpError);
-      }
-    }else{
-      if (signUpStatus !== 'succeeded')
-      {initialRender.current = false;}
+  useEffect(() => {
+    if (signUpStatus === 'succeeded') {
+      message.success("Sign up successfully!");
+      setsignUpStatus('idle');
+    } else if (signUpStatus === 'failed') {
+      message.error(signUpError);
+      setsignUpStatus('idle');
     }
-  }, [signUpStatus]);
+  }, [signUpStatus, navigate]);
 
 
   const fields = [
@@ -77,8 +65,6 @@ export default function SignIn() {
     name: 'authorization',
     text: 'Admin'
   }
-
-
  
   const onSubmit = async data => {
 
@@ -88,9 +74,13 @@ export default function SignIn() {
       data['authorization'] = 'regular';
     }
     data.username = data.email.split("@")[0];
-    
-
-    dispatch(signUpUser(data))
+    try{
+      await signUp(data);
+      setsignUpStatus('succeeded');
+    }catch(error){
+      setsignUpError(error.message);
+      setsignUpStatus('failed');
+    }
        
 };
 
