@@ -19,7 +19,6 @@ import EditProduct from "./Pages/EditProduct";
 const { Header, Footer, Content } = Layout;
 
 function App() {
-
   return (
     <>
       <Layout className="layout">

@@ -1,13 +1,18 @@
 import React from "react";
-import { Button, Space, Input, Select, Form, Layout, Upload } from "antd";
 import {
-  InboxOutlined,
-  UploadOutlined,
-  FileImageTwoTone,
-} from "@ant-design/icons";
-
+  Button,
+  Space,
+  Input,
+  Select,
+  Form,
+  Layout,
+  InputNumber,
+  message,
+} from "antd";
+import { FileImageTwoTone } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { createProductsAction } from "app/productSlice";
 const { Content } = Layout;
-const { Search, TextArea } = Input;
 
 const categories = [
   {
@@ -49,28 +54,51 @@ const container = {
 };
 
 const CreateProduct = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const createProductStatus = useSelector((state) => state.products.status);
+  const onSubmit = async (data) => {
+    dispatch(createProductsAction(data));
+  };
+
+  switch (createProductStatus) {
+    case "succeeded":
+      message.success("Product created successfully");
+      break;
+    case "failed":
+      message.error("Something went wrong in the back end. Please Try Again!");
+      break;
+    default:
+      break;
+  }
 
   return (
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f" }}>
         <h1 style={title}>Create Product</h1>
         <div style={container}>
-          <Form form={form} layout="vertical" autoComplete="off">
+          <Form
+            onFinish={onSubmit}
+            form={form}
+            layout="vertical"
+            autoComplete="off"
+          >
             <Form.Item
-              name="Product name"
-              label="Product name"
+              name="productName"
+              label="Product Name"
               rules={[
-                //   {
-                //     required: true,
-                //   },
+                {
+                  required: true,
+                  message: "Please enter your product Name",
+                },
                 {
                   type: "text",
                   warningOnly: true,
                 },
                 {
                   type: "string",
-                  min: 1,
+                  min: 10,
+                  message: "Product Name must be at least 10 characters long",
                 },
               ]}
             >
@@ -80,7 +108,16 @@ const CreateProduct = () => {
               />
             </Form.Item>
 
-            <Form.Item label="Product decription">
+            <Form.Item
+              name="description"
+              label="Description"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your product description",
+                },
+              ]}
+            >
               <Input.TextArea
                 showCount
                 maxLength={100}
@@ -94,7 +131,16 @@ const CreateProduct = () => {
             </Form.Item>
 
             <Space size="large">
-              <Form.Item label="Category">
+              <Form.Item
+                name="category"
+                label="Category"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your product's category",
+                  },
+                ]}
+              >
                 <Select
                   placeholder="choose the category"
                   options={categories}
@@ -102,23 +148,37 @@ const CreateProduct = () => {
                 />
               </Form.Item>
 
-              <Form.Item label="Price">
-                <Input
+              <Form.Item
+                name="price"
+                label="Price"
+                rules={[
+                  { required: true, message: "Please enter your price!" },
+                ]}
+              >
+                <InputNumber
                   style={{ width: "200px" }}
+                  min={0}
                   placeholder="input the price"
                 />
               </Form.Item>
             </Space>
 
             <Space size="large">
-              <Form.Item label="In Stock Quantity">
-                <Input
+              <Form.Item
+                name="quantity"
+                label="In Stock Quantity"
+                rules={[
+                  { required: true, message: "Please enter your quantity!" },
+                ]}
+              >
+                <InputNumber
+                  min={1}
                   style={{ width: "200px" }}
                   placeholder="input the quantity"
                 />
               </Form.Item>
 
-              <Form.Item label="Add Image Link">
+              <Form.Item name="imgLink" label="Add Image Link">
                 <Space.Compact>
                   <Input placeholder="Input Image Link Here" />
                   <Button type="primary">Submit</Button>
@@ -161,9 +221,13 @@ const CreateProduct = () => {
                 </p>
               </div>
             </Form.Item>
+
             <br />
+
             <Form.Item>
-              <Button type="primary">Add Product</Button>
+              <Button type="primary" htmlType="submit">
+                Add Product
+              </Button>
             </Form.Item>
           </Form>
         </div>
