@@ -46,6 +46,7 @@ const currentUserSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.isAuthenticated = !!Object.keys(action.payload).length;
       state.user = action.payload;
+
     },
     logOutUser: (state, action) => {
       state.isAuthenticated = false;

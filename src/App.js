@@ -10,6 +10,14 @@ import SignUp from 'pages/SignUp';
 import SignIn from 'pages/SignIn';
 import ChangePassword from 'pages/ChangePassword';
 import CreateProduct from "pages/CreateProduct";
+import { setCurrentUser } from "app/userSlice";
+import store from "app/store";
+import jwtDecode from "jwt-decode";
+
+if (localStorage.getItem("token")) {
+  console.log("setcurent user");
+  store.dispatch(setCurrentUser(jwtDecode(localStorage.getItem("token"))));
+}
 
 function App() {
   return (

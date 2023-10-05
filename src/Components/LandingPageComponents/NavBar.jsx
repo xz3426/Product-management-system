@@ -9,9 +9,9 @@ const { Header } = Layout;
 const { Search } = Input;
 
 const NavBar_ = () => {
-  const isSignedIn = useSelector((state) => state.user.status);
+  const isSignedIn = useSelector((state) => state.user.isAuthenticated);
   const dispatch = useDispatch();
-
+  console.log("isSignedIn",isSignedIn);
   const signOut = () => {
     dispatch(logOutUser());
   }
@@ -41,7 +41,7 @@ const NavBar_ = () => {
           <Badge>
             <Avatar shape="square" icon={<UserOutlined />} />
           </Badge>
-          {isSignedIn === 'succeeded' ? (
+          {isSignedIn === true ? (
             <Link to="/SignIn" onClick={signOut}>SignOut</Link>
           ) : (
             <Link to="/SignIn">SignIn</Link>
