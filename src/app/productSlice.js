@@ -37,7 +37,7 @@ export const createProductsAction = createAsyncThunk(
   }
 );
 
-const productsSlice = createSlice({
+export const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {},
@@ -64,5 +64,7 @@ const productsSlice = createSlice({
     });
   },
 });
+
+export const {} = productsSlice.actions;
 
 export default productsSlice.reducer;
