@@ -15,6 +15,7 @@ export default function SignIn() {
     if (signUpStatus === 'succeeded') {
       message.success("Sign up successfully!");
       setsignUpStatus('idle');
+      navigate("/signin");
     } else if (signUpStatus === 'failed') {
       message.error(signUpError);
       setsignUpStatus('idle');
