@@ -14,6 +14,7 @@ import { Layout } from "antd";
 import SignUp from "./Pages/SignUp";
 import SignIn from "./Pages/SignIn";
 import CreateProduct from "./Pages/CreateProduct";
+import EditProduct from "./Pages/EditProduct";
 
 const { Header, Footer, Content } = Layout;
 
@@ -39,6 +40,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="editProduct" element={<EditProduct />} />
             <Route path="productdetail" element={<ProductDetail />} />
           </Routes>
         </Content>

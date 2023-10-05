@@ -7,7 +7,7 @@ import { signUpUser } from 'app/userSlice';
 import { Layout, message} from "antd";
 
 
-export default function SignIn() {
+export default function SignUp() {
   const { Content } = Layout;
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -17,7 +17,6 @@ export default function AuthForm({
 
   return (
     <>
-    
       <Typography className={styles.title}>{title}</Typography>
       <Form onFinish={onSubmit} autoComplete="off">
         {fields.map(field => (
