@@ -1,14 +1,27 @@
 import { MailOutlined } from '@ant-design/icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import AuthForm from 'Components/AuthForm';
 import { authUser } from 'app/userSlice';
-import { Layout } from "antd";
-const { Content } = Layout;
+import { Layout, message} from "antd";
+
 export default function SignIn() {
+  const { Content } = Layout;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const signInStatus = useSelector((state) => state.user.status);
+  const signInError = useSelector((state) => state.error.message);  
+  
+  useEffect(()=>{
+    if (signInStatus === 'succeeded') {
+      message.success("Sign in successfully");
+      navigate('/');
+    } else if (signInStatus === 'failed'){
+      message.error(signInError);
+    }
+  }, [signInStatus]);
   
   const fields = [
     {
@@ -26,9 +39,7 @@ export default function SignIn() {
 
   const onSubmit = data => {
     console.log(data);
-    dispatch(authUser(data)).then(() => {
-      navigate(location.state?.from || '/');
-    });
+    dispatch(authUser(data))
   };
 
   return (
@@ -52,7 +63,7 @@ export default function SignIn() {
           border: "1px solid #ccc",
           borderRadius: "5px",
           flexDirection: "column",
-          height: "500px", 
+          height: "420px", 
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
         }}
       >
@@ -66,7 +77,7 @@ export default function SignIn() {
         <p>
           Don't have an account? <Link to="/signup">Sign up</Link> 
           
-          <a href="/forgot-password" style={{   float:"right" }}>Forgot Password?</a>
+          <a href="/changepassword" style={{   float:"right" }}>Forgot Password?</a>
         </p>
       </div>
     </div>

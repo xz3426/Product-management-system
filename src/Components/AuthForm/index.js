@@ -8,6 +8,7 @@ export default function AuthForm({
   buttonText,
   onSubmit,
   title,
+  title1,
   fields,
   checkbox,
   errors
@@ -18,6 +19,7 @@ export default function AuthForm({
   return (
     <>
       <Typography className={styles.title}>{title}</Typography>
+      {title1 && (<Typography className={styles.title1}>{title1}</Typography>)}
       <Form onFinish={onSubmit} autoComplete="off">
         {fields.map(field => (
           <Form.Item key={field.name} name={field.name} rules={field.rules}>

@@ -15,3 +15,19 @@ export const signIn = async data => {
     data
   });
 };
+
+export const changePwd = async data => {
+  return await apiCall({
+    url: '/api/auth/changePwd',
+    method: 'POST',
+    data
+  });
+};
+
+export const updatePwd = async data => {
+  return await apiCall({
+    url: '/api/auth/updatePwd',
+    method: 'POST',
+    data
+  });
+};

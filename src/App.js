@@ -11,12 +11,24 @@ import {
 import ProtectedRoute from "./Components/ProtectedRoute";
 import ProductDetail from "./Components/ProductDetail";
 import { Layout } from "antd";
-import SignUp from "./Pages/SignUp";
-import SignIn from "./Pages/SignIn";
-import CreateProduct from "./Pages/CreateProduct";
-import EditProduct from "./Pages/EditProduct";
+
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import ChangePassword from './pages/ChangePassword';
+import CreateProduct from "./pages/CreateProduct";
+import EditProduct from "./pages/EditProduct";
+import { setCurrentUser } from "./app/userSlice";
+import store from "app/store";
+import jwtDecode from "jwt-decode";
+
+if (localStorage.getItem("token")) {
+  console.log("setcurent user");
+  store.dispatch(setCurrentUser(jwtDecode(localStorage.getItem("token"))));
+}
+
 
 const { Header, Footer, Content } = Layout;
+
 
 function App() {
   return (
@@ -31,6 +43,7 @@ function App() {
             <Route path="/" element={<MyContent />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="signin" element={<SignIn />} />
+            <Route path="changepassword" element={<ChangePassword />} />
             <Route
               path="createProduct"
               element={
