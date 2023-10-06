@@ -38,7 +38,11 @@ const signin = async (req, res, next) => {
   try {
     const user = await db.User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "Invalid email/password" });
+      const error = { 
+        message: "Invalid email/password" , 
+        ok: false}
+      console.log(error);
+      return res.status(400).json({error});
     }
     const isMatch = await user.comparePassword(password);
     if (isMatch) {
@@ -53,10 +57,73 @@ const signin = async (req, res, next) => {
         profileImageUrl,
         token,
       });
+    }else {
+      const error = { 
+        message: "Invalid email/password" , 
+        ok: false}
+      console.log(error);
+      return res.status(400).json({error});
     }
+    
   } catch (err) {
     return next(err);
   }
 };
 
-module.exports = { signup, signin };
+const changePwd= async (req, res, next) =>{
+  const {email} = req.body;
+  try {
+    // Find the user by email
+    const user = await db.User.findOne({ email });
+
+    // Check if the user exists
+    if (!user) {
+      const error = {
+        message: "User not found.",
+        ok: false,
+      };
+      return res.status(400).json({ error });
+    }
+
+    // user.password = newPassword;
+
+
+    // Respond with a success message
+    return res.status(200).json({ message: "User find successfully.", ok: true });
+  } catch (err) {
+    // Handle any errors
+    console.error(err);
+    return res.status(500).json({ error: 'Internal server error.' });
+  }
+};
+
+const updatePwd= async (req, res, next) =>{
+  const {email, newPassword} = req.body;
+  try {
+    // Find the user by email
+    const user = await db.User.findOne({ email });
+
+    // Check if the user exists
+    if (!user) {
+      const error = {
+        message: "User not found.",
+        ok: false,
+      };
+      return res.status(400).json({ error });
+    }
+
+    user.password = newPassword;
+
+    // Save the updated user object
+    await user.save();
+
+    // Respond with a success message
+    return res.status(200).json({ message: "Password updated successfully.", ok: true });
+  } catch (err) {
+    // Handle any errors
+    console.error(err);
+    return res.status(500).json({ error: 'Internal server error.' });
+  }
+};
+
+module.exports = { signup, signin, changePwd, updatePwd };
