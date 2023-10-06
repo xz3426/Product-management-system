@@ -6,6 +6,7 @@ const initialState = {
   products: [],
   productFetchingStatus: "idle",
   status: "idle",
+  productOrder: "Last added",
 };
 
 export const fetchProductsAction = createAsyncThunk(

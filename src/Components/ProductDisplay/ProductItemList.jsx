@@ -11,6 +11,13 @@ function ProductItemList({ products }) {
         xl: 6,
         xxl: 3,
       }}
+      size="large"
+      pagination={{
+        onChange: (page) => {
+          console.log(page);
+        },
+        pageSize: 6,
+      }}
       dataSource={products}
       renderItem={(item) => (
         <List.Item>
