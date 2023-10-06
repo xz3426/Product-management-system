@@ -4,6 +4,7 @@ import { removeError, addError } from "./errorSlice";
 
 const initialState = {
   products: [],
+  productFetchingStatus: "idle",
   status: "idle",
 };
 
@@ -53,14 +54,14 @@ export const productsSlice = createSlice({
       state.status = "pending";
     });
     builder.addCase(fetchProductsAction.fulfilled, (state, action) => {
-      state.status = "succeeded";
+      state.productFetchingStatus = "succeeded";
       state.products = action.payload;
     });
     builder.addCase(fetchProductsAction.rejected, (state, action) => {
-      state.status = "failed";
+      state.productFetchingStatus = "failed";
     });
     builder.addCase(fetchProductsAction.pending, (state, action) => {
-      state.status = "pending";
+      state.productFetchingStatus = "pending";
     });
   },
 });

@@ -1,4 +1,5 @@
 import { Layout } from "antd";
+import ProductDisplay from "Components/ProductDisplay";
 const { Content } = Layout;
 const MyContent_ = () => {
   return (
@@ -8,7 +9,9 @@ const MyContent_ = () => {
         minHeight: "100vh",
         backgroundColor: "lightgrey",
       }}
-    ></Content>
+    >
+      <ProductDisplay />
+    </Content>
   );
 };
 
