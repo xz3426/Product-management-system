@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Space, Input, Select, Form, Layout, InputNumber, Upload } from "antd";
+import { Button, Space, Input, Select, Form, Layout } from "antd";
 import {
   FileImageTwoTone,
 } from "@ant-design/icons";
