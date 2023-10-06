@@ -13,15 +13,22 @@ function ProductItemList({ products }) {
       }}
       size="large"
       pagination={{
-        onChange: (page) => {
-          console.log(page);
-        },
+        onChange: (page) => {},
         pageSize: 6,
       }}
       dataSource={products}
       renderItem={(item) => (
         <List.Item>
-          <Card title={item.productName}>Card content</Card>
+          <Card title={item.productName}>
+            <ul>
+              <li>Price: {item.price}</li>
+              <li>description: {item.description}</li>
+              <li>
+                dateCreated:{" "}
+                {new Date(item.dateCreated).toISOString().split("T")[0]}
+              </li>
+            </ul>
+          </Card>
         </List.Item>
       )}
     />

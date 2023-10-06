@@ -42,7 +42,23 @@ export const createProductsAction = createAsyncThunk(
 export const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    sortProductByDate: (state) => {
+      state.products = state.products.sort((a, b) => {
+        return new Date(a.createdDate) - new Date(b.createdDate);
+      });
+    },
+    sortProductByPriceLowtoHigh: (state) => {
+      state.products = state.products.sort((a, b) => {
+        return a.price - b.price;
+      });
+    },
+    sortProductByPriceHightoLow: (state) => {
+      state.products = state.products.sort((a, b) => {
+        return b.price - a.price;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(createProductsAction.fulfilled, (state, action) => {
       state.status = "succeeded";
@@ -67,6 +83,10 @@ export const productsSlice = createSlice({
   },
 });
 
-export const {} = productsSlice.actions;
+export const {
+  sortProductByDate,
+  sortProductByPriceLowtoHigh,
+  sortProductByPriceHightoLow,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;
