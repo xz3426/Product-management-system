@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Tag, Layout, Space, Image, InputNumber, Button } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { fetchProductById } from "services/products";
 
 const { Content } = Layout;
 
@@ -21,17 +23,16 @@ const container = {
 };
 
 const ProductDetail = () => {
-  //   const { product } = useSelector((state) => state.product);
-  const product = {
-    category: "electronic product",
-    url: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS4jC9GWQazavYcMKTwcUF1Wae7BWWm9X0ZYyGfE4hrwgUZKK4hSELEEX-1Bg",
-    name: "iPhone 14",
-    price: "999",
-    description:
-      "Apple iPhone 11, 64GB, Black - Unlocked (Renewed) · 4.3 out of 5 stars",
-  };
-
+  const { id } = useParams();
   const [value, setValue] = useState("1");
+  const [product, setProduct] = useState({});
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetchProductById(id);
+      setProduct(response);
+    }
+    fetchData();
+  }, []);
 
   return (
     <Content style={{ padding: "0 50px" }}>
