@@ -4,7 +4,9 @@ import { removeError, addError } from "./errorSlice";
 
 const initialState = {
   products: [],
+  productFetchingStatus: "idle",
   status: "idle",
+  productOrder: "Last added",
 };
 
 export const fetchProductsAction = createAsyncThunk(
@@ -40,7 +42,23 @@ export const createProductsAction = createAsyncThunk(
 export const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    sortProductByDate: (state) => {
+      state.products = state.products.sort((a, b) => {
+        return new Date(a.createdDate) - new Date(b.createdDate);
+      });
+    },
+    sortProductByPriceLowtoHigh: (state) => {
+      state.products = state.products.sort((a, b) => {
+        return a.price - b.price;
+      });
+    },
+    sortProductByPriceHightoLow: (state) => {
+      state.products = state.products.sort((a, b) => {
+        return b.price - a.price;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(createProductsAction.fulfilled, (state, action) => {
       state.status = "succeeded";
@@ -53,18 +71,22 @@ export const productsSlice = createSlice({
       state.status = "pending";
     });
     builder.addCase(fetchProductsAction.fulfilled, (state, action) => {
-      state.status = "succeeded";
+      state.productFetchingStatus = "succeeded";
       state.products = action.payload;
     });
     builder.addCase(fetchProductsAction.rejected, (state, action) => {
-      state.status = "failed";
+      state.productFetchingStatus = "failed";
     });
     builder.addCase(fetchProductsAction.pending, (state, action) => {
-      state.status = "pending";
+      state.productFetchingStatus = "pending";
     });
   },
 });
 
-export const {} = productsSlice.actions;
+export const {
+  sortProductByDate,
+  sortProductByPriceLowtoHigh,
+  sortProductByPriceHightoLow,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -1,14 +1,17 @@
 import { Layout } from "antd";
+import ProductDisplay from "Components/ProductDisplay";
 const { Content } = Layout;
 const MyContent_ = () => {
   return (
     <Content
       style={{
         padding: "0 50px",
-        minHeight: "100vh",
+        minHeight: "90vh",
         backgroundColor: "lightgrey",
       }}
-    ></Content>
+    >
+      <ProductDisplay />
+    </Content>
   );
 };
 
