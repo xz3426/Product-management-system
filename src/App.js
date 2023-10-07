@@ -61,7 +61,7 @@ function App() {
             <Route path="productdetail" element={<ProductDetail />} />
           </Routes>
         </Content>
-
+        <br />
         <Footer>
           <MyFooter></MyFooter>
         </Footer>
