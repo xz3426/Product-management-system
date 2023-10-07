@@ -6,7 +6,7 @@ const MyContent_ = () => {
     <Content
       style={{
         padding: "0 50px",
-        minHeight: "100vh",
+        minHeight: "90vh",
         backgroundColor: "lightgrey",
       }}
     >

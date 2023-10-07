@@ -1,14 +1,16 @@
-import { Card, List } from "antd";
+import { List } from "antd";
+import ProductItem from "./ProductItem";
+
 function ProductItemList({ products }) {
   return (
     <List
       grid={{
-        gutter: 16,
+        gutter: 8,
         xs: 1,
         sm: 2,
-        md: 4,
-        lg: 4,
-        xl: 6,
+        md: 3,
+        lg: 3,
+        xl: 3,
         xxl: 3,
       }}
       size="large"
@@ -17,20 +19,7 @@ function ProductItemList({ products }) {
         pageSize: 6,
       }}
       dataSource={products}
-      renderItem={(item) => (
-        <List.Item>
-          <Card title={item.productName}>
-            <ul>
-              <li>Price: {item.price}</li>
-              <li>description: {item.description}</li>
-              <li>
-                dateCreated:{" "}
-                {new Date(item.dateCreated).toISOString().split("T")[0]}
-              </li>
-            </ul>
-          </Card>
-        </List.Item>
-      )}
+      renderItem={(item) => <ProductItem item={item} />}
     />
   );
 }

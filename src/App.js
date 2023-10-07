@@ -12,9 +12,9 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import ProductDetail from "./Components/ProductDetail";
 import { Layout } from "antd";
 
-import SignUp from './pages/SignUp';
-import SignIn from './pages/SignIn';
-import ChangePassword from './pages/ChangePassword';
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import ChangePassword from "./pages/ChangePassword";
 import CreateProduct from "./pages/CreateProduct";
 import { setCurrentUser } from "./app/userSlice";
 import store from "app/store";
@@ -25,9 +25,7 @@ if (localStorage.getItem("token")) {
   store.dispatch(setCurrentUser(jwtDecode(localStorage.getItem("token"))));
 }
 
-
 const { Header, Footer, Content } = Layout;
-
 
 function App() {
   return (
@@ -54,7 +52,7 @@ function App() {
             <Route path="productdetail" element={<ProductDetail />} />
           </Routes>
         </Content>
-
+        <br />
         <Footer>
           <MyFooter></MyFooter>
         </Footer>
