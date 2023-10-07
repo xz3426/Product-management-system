@@ -18,6 +18,7 @@ const ProductItem = ({ item }) => {
             }
           />
         }
+        onClick={() => navigate(`ProductDetail/${item._id}`)}
         actions={[
           <Button type="primary" onClick={() => console.log("Add clicked")}>
             Add
