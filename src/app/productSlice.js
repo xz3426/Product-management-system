@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createProduct, fetchProducts } from "services/products";
+import { createProduct, fetchProducts, editProduct, fetchProduct } from "services/products";
 import { removeError, addError } from "./errorSlice";
 
 const initialState = {
@@ -27,6 +27,21 @@ export const createProductsAction = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const product = await createProduct(data);
+      thunkAPI.dispatch(removeError());
+      return product;
+    } catch (error) {
+      const { message } = error;
+      thunkAPI.dispatch(addError(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const editProductAction = createAsyncThunk(
+  "products/editProduct",
+  async (data, thunkAPI) => {
+    try {
+      const product = await editProduct(data);
       thunkAPI.dispatch(removeError());
       return product;
     } catch (error) {
