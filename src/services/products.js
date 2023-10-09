@@ -16,18 +16,17 @@ export const fetchProducts = async () => {
   });
 };
 
-export const fetchProductByID = async (data) => {
-  return await apiCall({
-    url: `/api/products/product/`,
-    method: "GET",
-  });
-};
-
-/////////-->
 export const editProduct = async (data) => {
   return await apiCall({
     url: `/api/products/product/${data._id}`,
     method: "PUT",
-    data
+    data,
+  });
+};
+
+export const fetchProductById = async (id) => {
+  return await apiCall({
+    url: `/api/products/product/${id}`,
+    method: "GET",
   });
 };

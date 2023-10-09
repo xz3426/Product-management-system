@@ -1,5 +1,6 @@
-import React from "react";
-import { Button, Space, Input, Select, Form, Layout } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Space, Input, Select, Form, Layout, Image } from "antd";
+import { Link } from "react-router-dom";
 import {
   FileImageTwoTone,
 } from "@ant-design/icons";
@@ -66,6 +67,10 @@ const fields = {
           value: "fruit",
           label: "fruit",
         },
+        {
+          value: "electronic product",
+          label: "electronic product"
+        }
       ],
     },
 
@@ -127,8 +132,30 @@ const container = {
 const ProductForm = ({
   buttonText,
   onSubmit,
+  product,
   titleText
   }) => {
+
+    // console.log(product);
+    // console.log(product.imgLink);
+    // console.log(product.price);
+    // console.log(product.description);
+
+  const [productImg, setProductImg] = useState("");
+
+
+  useEffect(() => {
+    if(product?.imgLink !== undefined){
+      setProductImg(product.imgLink);
+    }
+  }, []);
+
+
+  const handleButtonClick = () => {
+    var inputElement = document.getElementById("myInputImg")
+    // console.log("link::::", inputElement.value);
+    setProductImg(inputElement.value);
+  };
 
   return (
     <Content>
@@ -149,6 +176,7 @@ const ProductForm = ({
               <Input
                 style={{ width: "100%" }}
                 placeholder={fields.productName.placeholder}
+                value={product?.name}
               />
             </Form.Item>
 
@@ -161,11 +189,13 @@ const ProductForm = ({
               <Input.TextArea
                 showCount
                 maxLength={200}
+                
                 style={{
                   height: 120,
                   marginBottom: 24,
                 }}
                 placeholder={fields.description.placeholder}
+                value={product?.description}
               />
             </Form.Item>
 
@@ -179,6 +209,7 @@ const ProductForm = ({
                 <Select
                   placeholder={fields.category.placeholder}
                   options={fields.category.categories}
+                  value={product?.category}
                   style={{ width: "200px" }}
                 />
               </Form.Item>
@@ -193,6 +224,7 @@ const ProductForm = ({
                   style={{ width: "200px" }}
                   min={0}
                   placeholder={fields.price.placeholder}
+                  value={Number(product?.price)}
                 />
               </Form.Item>
             </Space>
@@ -207,6 +239,7 @@ const ProductForm = ({
                 <Input
                   style={{ width: "200px" }}
                   placeholder={fields.quantity.placeholder}
+                  value={product?.quantity}
                 />
               </Form.Item>
 
@@ -217,48 +250,63 @@ const ProductForm = ({
                 rules={fields.imgLink.rules}
               >
                 <Space.Compact>
-                  <Input placeholder={fields.imgLink.placeholder} />
-                  <Button type="primary">Submit</Button>
+                  <Input 
+                    placeholder={fields.imgLink.placeholder} 
+                    value={product?.imgLink}
+                    id="myInputImg"
+                  />
+                  <Button type="primary" onClick={handleButtonClick}>Submit</Button>
                 </Space.Compact>
               </Form.Item>
             </Space>
 
             <Form.Item>
-              <div
-                style={{
-                  margin: "0px 50px",
-                  height: "15em",
-                  backgroundColor: "#f5f3f38f",
-                  border: "1px dashed grey",
-                  borderRadius: "10px",
-                }}
-              >
-                <p>
-                  <FileImageTwoTone
+              {productImg === "" ? (
+                  <div
                     style={{
-                      display: "block",
-                      fontSize: "50px",
-                      alignItems: "center",
-                      paddingTop: "1em",
+                      margin: "0px 50px",
+                      height: "15em",
+                      backgroundColor: "#f5f3f38f",
+                      border: "1px dashed grey",
+                      borderRadius: "10px",
                     }}
-                  />
-                </p>
-                <p
-                  style={{
-                    display: "block",
-                    textAlign: "center",
-                    color: "grey",
-                  }}
-                >
-                  Product Image Preview
-                </p>
-              </div>
+                  >
+                    <p>
+                      <FileImageTwoTone
+                        style={{
+                          display: "block",
+                          fontSize: "50px",
+                          alignItems: "center",
+                          paddingTop: "1em",
+                        }}
+                      />
+                    </p>
+                    <p
+                      style={{
+                        display: "block",
+                        textAlign: "center",
+                        color: "grey",
+                      }}
+                    >
+                      Product Image Preview
+                    </p>
+                  </div>
+              ) : (
+                <Image 
+                  width={250} 
+                  src={productImg} 
+                  style={{display:"block", marginLeft:"150px"}}
+                />
+              )}
+
             </Form.Item>
             <br />
             <Form.Item>
-              <Button type="primary" htmlType="submit">
-                {buttonText}
-              </Button>
+              {/* <Link to="/"> */}
+                <Button type="primary" htmlType="submit">
+                  {buttonText}
+                </Button>
+              {/* </Link> */}
             </Form.Item>
           </Form>
         </div>

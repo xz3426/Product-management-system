@@ -28,6 +28,7 @@ export const createProductsAction = createAsyncThunk(
   "products/createProduct",
   async (data, thunkAPI) => {
     try {
+      console.log("data:::::::::", data);
       const product = await createProduct(data);
       thunkAPI.dispatch(removeError());
       return product;
@@ -94,6 +95,16 @@ export const productsSlice = createSlice({
     });
     builder.addCase(fetchProductsAction.pending, (state, action) => {
       state.productFetchingStatus = "pending";
+    });
+    builder.addCase(editProductAction.fulfilled, (state, action) => {
+      state.productEditStatus = "succeeded";
+      // state.products = action.payload;
+    });
+    builder.addCase(editProductAction.rejected, (state, action) => {
+      state.productEditStatus = "failed";
+    });
+    builder.addCase(editProductAction.pending, (state, action) => {
+      state.productEditStatus = "pending";
     });
   },
 });

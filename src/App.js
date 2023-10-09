@@ -17,6 +17,7 @@ import SignIn from "./pages/SignIn";
 import ChangePassword from "./pages/ChangePassword";
 import CreateProduct from "./pages/CreateProduct";
 import EditProduct from "./pages/EditProduct";
+import Error from "./pages/Error";
 import { setCurrentUser } from "./app/userSlice";
 import store from "app/store";
 import jwtDecode from "jwt-decode";
@@ -50,15 +51,17 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
             <Route
-              path="editProduct"
+              path="editProduct/:id"
               element={
                 <ProtectedRoute>
                   <EditProduct />
                 </ProtectedRoute>
               }
             />
-            <Route path="productdetail" element={<ProductDetail />} />
+            <Route path="ProductDetail/:id" element={<ProductDetail />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </Content>
         <br />

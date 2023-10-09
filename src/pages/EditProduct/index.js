@@ -1,18 +1,32 @@
 import { Layout, message } from "antd";
+import React, { useEffect, useState } from "react";
 import ProductForm from "Components/ProductForm";
-
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editProductAction } from "app/productSlice";
+import { fetchProductById } from "services/products";
 
 
 const { Content } = Layout;
 
 export default function EditProduct() {
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetchProductById(id);
+      console.log(response);
+      setProduct(response);
+    }
+    fetchData();
+  }, []);
+
   const dispatch = useDispatch();
-  const editProductStatus = useSelector((state) => state.products.editstatus);
+  const editProductStatus = useSelector((state) => state.products.productEditStatus);
   
   const onSubmit = async (data) => {
-    dispatch(editProductAction(data));
+    dispatch(editProductAction({...data, _id:id}));
   };
 
 
@@ -32,6 +46,7 @@ export default function EditProduct() {
       <ProductForm
         buttonText="Edit Product"
         onSubmit={onSubmit}
+        product={product}
         titleText="Edit Product"
       />
     </Content>
