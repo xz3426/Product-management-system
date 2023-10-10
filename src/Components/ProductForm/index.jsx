@@ -6,7 +6,6 @@ import {
 } from "@ant-design/icons";
 
 const { Content } = Layout;
-const { Search, TextArea } = Input;
 
 const fields = {
     productName: {
@@ -17,7 +16,7 @@ const fields = {
         {
           required: true,
           message: "Please enter your product name!",
-          validateTrigger: "onBlur", // Validate onBlur
+          validateTrigger: "onBlur", 
         },
         {
           type: "text",
@@ -126,7 +125,7 @@ const container = {
   marginLeft: "350px",
   marginRight: "350px",
   padding: "30px 100px",
-  "font-family": "Arial, sans-serif",
+  fontFamily: "Arial, sans-serif",
 };
 
 const ProductForm = ({
@@ -136,12 +135,8 @@ const ProductForm = ({
   titleText
   }) => {
 
-    // console.log(product);
-    // console.log(product.imgLink);
-    // console.log(product.price);
-    // console.log(product.description);
-
   const [productImg, setProductImg] = useState("");
+  const [submitedImg, setSubmitedImg] = useState(false);
 
 
   useEffect(() => {
@@ -153,8 +148,8 @@ const ProductForm = ({
 
   const handleButtonClick = () => {
     var inputElement = document.getElementById("myInputImg")
-    // console.log("link::::", inputElement.value);
     setProductImg(inputElement.value);
+    setSubmitedImg(true);
   };
 
   return (
@@ -162,21 +157,24 @@ const ProductForm = ({
       <div style={{ backgroundColor: "#f5f3f38f" }}>
         <h1 style={title}>
             {titleText}
-            {/* Edit Product */}
         </h1>
 
         <div style={container}>
-          <Form onFinish={onSubmit} layout="vertical" autoComplete="off">
+          <Form 
+            onFinish={onSubmit} 
+            layout="vertical" 
+            autoComplete="off"
+          >
             <Form.Item
               key={fields.productName.name}
               name={fields.productName.name}
               label="Product Name"
               rules={fields.productName.rules}
+              initialValue={product?.productName}
             >
               <Input
                 style={{ width: "100%" }}
                 placeholder={fields.productName.placeholder}
-                value={product?.name}
               />
             </Form.Item>
 
@@ -185,6 +183,7 @@ const ProductForm = ({
               name={fields.description.name}
               label="Product Description"
               rules={fields.description.rules}
+              initialValue={product?.description}
             >
               <Input.TextArea
                 showCount
@@ -195,7 +194,7 @@ const ProductForm = ({
                   marginBottom: 24,
                 }}
                 placeholder={fields.description.placeholder}
-                value={product?.description}
+                // value={product?.description}
               />
             </Form.Item>
 
@@ -205,11 +204,12 @@ const ProductForm = ({
                 name={fields.category.name}
                 label="Category"
                 rules={fields.category.rules}
+                initialValue={product?.category}
               >
                 <Select
                   placeholder={fields.category.placeholder}
                   options={fields.category.categories}
-                  value={product?.category}
+                  // value={product?.category}
                   style={{ width: "200px" }}
                 />
               </Form.Item>
@@ -219,12 +219,12 @@ const ProductForm = ({
                 name={fields.price.name}
                 label="Price"
                 rules={fields.price.rules}
+                initialValue={product?.price}
               >
                 <Input
                   style={{ width: "200px" }}
                   min={0}
                   placeholder={fields.price.placeholder}
-                  value={Number(product?.price)}
                 />
               </Form.Item>
             </Space>
@@ -235,11 +235,12 @@ const ProductForm = ({
                 name={fields.quantity.name}
                 label="In Stock Quantity"
                 rules={fields.quantity.rules}
+                initialValue={product?.quantity}
               >
                 <Input
                   style={{ width: "200px" }}
                   placeholder={fields.quantity.placeholder}
-                  value={product?.quantity}
+                  // value={product?.quantity}
                 />
               </Form.Item>
 
@@ -261,7 +262,7 @@ const ProductForm = ({
             </Space>
 
             <Form.Item>
-              {productImg === "" ? (
+              {!submitedImg ? (
                   <div
                     style={{
                       margin: "0px 50px",
@@ -302,11 +303,11 @@ const ProductForm = ({
             </Form.Item>
             <br />
             <Form.Item>
-              {/* <Link to="/"> */}
+              <Link to="/">
                 <Button type="primary" htmlType="submit">
                   {buttonText}
                 </Button>
-              {/* </Link> */}
+              </Link>
             </Form.Item>
           </Form>
         </div>

@@ -12,12 +12,14 @@ const { Content } = Layout;
 export default function EditProduct() {
   const { id } = useParams();
   const [product, setProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       const response = await fetchProductById(id);
       console.log(response);
       setProduct(response);
+      setIsLoading(false);
     }
     fetchData();
   }, []);
@@ -42,13 +44,16 @@ export default function EditProduct() {
   }
 
   return (
-    <Content>
-      <ProductForm
-        buttonText="Edit Product"
-        onSubmit={onSubmit}
-        product={product}
-        titleText="Edit Product"
-      />
+    (<Content>
+      {!isLoading && 
+        <ProductForm
+          buttonText="Edit Product"
+          onSubmit={onSubmit}
+          product={product}
+          titleText="Edit Product"
+        />
+      }
     </Content>
+    )
   );
 }
