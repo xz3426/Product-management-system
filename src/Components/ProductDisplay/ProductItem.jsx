@@ -16,9 +16,12 @@ const ProductItem = ({ item }) => {
               item.imgLink ||
               "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
             }
+            onClick={() => navigate(`ProductDetail/${item._id}`)}
+            style={{ cursor: "pointer" }}
+            width={"262"}
+            height={"159"}
           />
         }
-        onClick={() => navigate(`ProductDetail/${item._id}`)}
         actions={[
           <Button type="primary" onClick={() => console.log("Add clicked")}>
             Add
@@ -28,7 +31,11 @@ const ProductItem = ({ item }) => {
           </Button>,
         ]}
       >
-        <Meta description={item.productName} />
+        <Meta
+          description={item.productName}
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(`ProductDetail/${item._id}`)}
+        />
         <Meta title={`Price: $${item.price}`} />
       </Card>
     </List.Item>
