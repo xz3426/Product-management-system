@@ -44,6 +44,9 @@ export const searchProductsAction = createAsyncThunk(
   "products/searchProducts",
   async (key, thunkAPI) => {
     try {
+      if (key === "") {
+        return await fetchProducts();
+      }
       const products = await searchProducts(key);
       thunkAPI.dispatch(removeError());
       return products;
