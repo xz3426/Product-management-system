@@ -2,9 +2,17 @@ import React, { useMemo } from "react";
 import { Card, List, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import Meta from "antd/es/card/Meta";
+import jwt_decode from "jwt-decode";
 
 const ProductItem = ({ item }) => {
-  const isAdmin = useMemo(() => localStorage.getItem("token"), []);
+  let isAdmin;
+  const token = localStorage.getItem("token");
+  if (token) {
+    const authorization = jwt_decode(token).authorization;
+    if (authorization === "admin") {
+      isAdmin = true;
+    }
+  }
   const navigate = useNavigate();
   return (
     <List.Item>

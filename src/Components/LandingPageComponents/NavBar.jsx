@@ -4,6 +4,7 @@ import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "app/userSlice";
+import { searchProductsAction } from "app/productSlice";
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -37,7 +38,9 @@ const NavBar_ = () => {
           enterButton="Search"
           size="middle"
           style={{ width: "30%" }}
-          onSearch={() => {}}
+          onSearch={(value) => {
+            dispatch(searchProductsAction(value));
+          }}
         />
 
         <div>

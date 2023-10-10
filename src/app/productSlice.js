@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createProduct, fetchProducts } from "services/products";
+import { searchProducts } from "services/search";
 import { removeError, addError } from "./errorSlice";
 
 const initialState = {
@@ -31,6 +32,21 @@ export const createProductsAction = createAsyncThunk(
       const product = await createProduct(data);
       thunkAPI.dispatch(removeError());
       return product;
+    } catch (error) {
+      const { message } = error;
+      thunkAPI.dispatch(addError(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const searchProductsAction = createAsyncThunk(
+  "products/searchProducts",
+  async (key, thunkAPI) => {
+    try {
+      const products = await searchProducts(key);
+      thunkAPI.dispatch(removeError());
+      return products;
     } catch (error) {
       const { message } = error;
       thunkAPI.dispatch(addError(message));
@@ -78,6 +94,16 @@ export const productsSlice = createSlice({
       state.productFetchingStatus = "failed";
     });
     builder.addCase(fetchProductsAction.pending, (state, action) => {
+      state.productFetchingStatus = "pending";
+    });
+    builder.addCase(searchProductsAction.fulfilled, (state, action) => {
+      state.productFetchingStatus = "succeeded";
+      state.products = action.payload;
+    });
+    builder.addCase(searchProductsAction.rejected, (state, action) => {
+      state.productFetchingStatus = "failed";
+    });
+    builder.addCase(searchProductsAction.pending, (state, action) => {
       state.productFetchingStatus = "pending";
     });
   },
