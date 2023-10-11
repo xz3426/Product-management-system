@@ -65,9 +65,25 @@ const updateProductById = async (req, res, next) => {
   }
 };
 
+const deleteProductById = async (req, res, next) => {
+  try {
+    const productId = req.params.id;
+    await db.Product.findByIdAndDelete(productId);
+    return res.status(200).json({
+      message: "Product delete successfully",
+    });
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+      ok: false,
+    });
+  }
+};
+
 module.exports = {
   creatProduct,
   getAllProducts,
   getProductById,
   updateProductById,
+  deleteProductById,
 };

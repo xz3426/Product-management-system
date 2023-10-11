@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Space, Input, Select, Form, Layout, Image } from "antd";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FileImageTwoTone } from "@ant-design/icons";
+import { deleteProductById } from "services/products";
 
 const { Content } = Layout;
 
@@ -128,6 +129,7 @@ const container = {
 const ProductForm = ({ buttonText, onSubmit, product, titleText }) => {
   const [productImg, setProductImg] = useState("");
   const [submitedImg, setSubmitedImg] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (product?.imgLink !== undefined) {
@@ -286,8 +288,21 @@ const ProductForm = ({ buttonText, onSubmit, product, titleText }) => {
             </Form.Item>
             <br />
             <Form.Item>
-              <Button type="primary" htmlType="submit">
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ margin: "20px" }}
+              >
                 {buttonText}
+              </Button>
+              <Button
+                danger
+                style={{ margin: "20px" }}
+                onClick={() => {
+                  deleteProductById(product._id).then(navigate("/"));
+                }}
+              >
+                Delete
               </Button>
             </Form.Item>
           </Form>

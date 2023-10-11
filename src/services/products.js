@@ -30,3 +30,10 @@ export const fetchProductById = async (id) => {
     method: "GET",
   });
 };
+
+export const deleteProductById = async (id) => {
+  return await apiCall({
+    url: `/api/products/product/${id}`,
+    method: "DELETE",
+  });
+};
