@@ -21,15 +21,24 @@ import { setCurrentUser } from "./app/userSlice";
 import store from "app/store";
 import jwtDecode from "jwt-decode";
 
-if (localStorage.getItem("token")) {
-  const user = jwtDecode(localStorage.getItem("token"));
-  store.dispatch(setCurrentUser(user));
-  store.dispatch(fetchCartc({ username: user.username }));
-}
+
 
 const { Header, Footer, Content } = Layout;
 
 function App() {
+  const dispatch = useDispatch();
+  if (localStorage.getItem("token")) {
+    const user = jwtDecode(localStorage.getItem("token"));
+    console.log("cartFectched1");
+    dispatch(fetchCartc({ username: user.username })).then(()=>{
+      store.dispatch(setCurrentUser(user));
+    })
+    console.log("cartFectched2");
+  
+
+  }
+
+
   return (
     <>
       <Layout className="layout">
