@@ -13,6 +13,8 @@ import {
 } from "antd";
 import { logOutUser } from "app/userSlice";
 import Cart from "Components/Cart";
+=======
+import { searchProductsAction } from "app/productSlice";
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -54,7 +56,9 @@ const NavBar_ = () => {
           enterButton="Search"
           size="middle"
           style={{ width: "30%" }}
-          onSearch={() => {}}
+          onSearch={(value) => {
+            dispatch(searchProductsAction(value));
+          }}
         />
         <div>
           <Badge>

@@ -54,7 +54,9 @@ const updateProductById = async (req, res, next) => {
       return res.status(404).send({ message: "Product not found" });
     }
 
-    return res.status(200).json(product);
+    return res.status(200).json({
+      message: "Product updated successfully",
+    });
   } catch (err) {
     return res.status(400).json({
       message: err.message,

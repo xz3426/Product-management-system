@@ -14,6 +14,7 @@ app.use(cors());
 app.use("/api/auth", require("./src/routes/auth"));
 app.use("/api/products", require("./src/routes/product"));
 app.use("/api/cart", require("./src/routes/cart"));
+app.use("/api/search", require("./src/routes/search"));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
