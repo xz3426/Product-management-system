@@ -20,11 +20,17 @@ const ProductItem = ({ item }) => {
   const cartItems = useSelector((state) => state.cart.cartItems)
   const handleAdd = () => {
     const data = {username:user.username, productId:item._id}
-    console.log(123213213123);
+
     console.log(cartItems);
-    dispatch(addProductc(data));
-    dispatch(fetchCartc({username:"test"}));
+    dispatch(addProductc(data)).then(()=>
+    {
+      dispatch(fetchCartc({username:user.username}));
+      console.log('after', cartItems);
+    }
+    );
   }
+    
+
   return (
     <List.Item>
       <Card

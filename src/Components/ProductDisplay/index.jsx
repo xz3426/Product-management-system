@@ -33,7 +33,6 @@ export default function ProductDisplay() {
   }, []);
 
   const conditionalRender = () => {
-    console.log(products);
     if (productFetchingStatus === "succeeded") {
       return <ProductItemList products={products} />;
     }
@@ -41,7 +40,6 @@ export default function ProductDisplay() {
   };
 
   const handleChange = (value) => {
-    console.log(value);
     switch (value) {
       case LAST_ADDED:
         dispatch(sortProductByDate());
