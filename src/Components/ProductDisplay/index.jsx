@@ -13,6 +13,14 @@ import { Select, Space, Button } from "antd";
 import { LAST_ADDED, PRICE_HIGH_LOW, PRICE_LOW_HIGH } from "consts";
 import jwt_decode from "jwt-decode";
 import styles from "./style.module.css";
+const container = {
+  backgroundColor: "#edebe8",
+  display: "flex",
+  flexDirection: "column",
+  marginLeft: "100px",
+  marginRight: "100px",
+  padding: "30px 50px",
+};
 
 export default function ProductDisplay() {
   let isAdmin;
@@ -34,7 +42,11 @@ export default function ProductDisplay() {
 
   const conditionalRender = () => {
     if (productFetchingStatus === "succeeded") {
-      return <ProductItemList products={products} />;
+      return (
+        <div style={container}>
+          <ProductItemList products={products} />
+        </div>
+      );
     }
     return <LoadingPage />;
   };

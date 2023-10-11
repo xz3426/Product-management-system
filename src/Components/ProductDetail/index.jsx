@@ -51,7 +51,7 @@ const ProductDetail = () => {
         updateQuantityc({
           username: user?.username,
           productId: id,
-          quantity: quantity + value,
+          quantity: quantity + Number(value),
         })
       ).then((action) => {
         dispatch(fetchCartc({ username: user?.username }));
