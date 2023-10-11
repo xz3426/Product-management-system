@@ -2,18 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import {
-  Layout,
-  Input,
-  Badge,
-  Avatar,
-  Button,
-  Popover,
-  List,
-} from "antd";
+import { Layout, Input, Badge, Avatar, Button, Popover, List } from "antd";
 import { logOutUser } from "app/userSlice";
 import Cart from "Components/Cart";
-=======
 import { searchProductsAction } from "app/productSlice";
 
 const { Header } = Layout;
@@ -78,7 +69,7 @@ const NavBar_ = () => {
           content={Cart}
           trigger="click"
           overlayStyle={{
-            width: "30vw"
+            width: "30vw",
           }}
         >
           <Badge count={cartItemCount} size="small">
