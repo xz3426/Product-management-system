@@ -21,9 +21,8 @@ import jwtDecode from "jwt-decode";
 
 if (localStorage.getItem("token")) {
   const user = jwtDecode(localStorage.getItem("token"));
-  store.dispatch(setCurrentUser(user)).then(() => {
-    store.dispatch(fetchCartc({ username: user.username }));
-  });
+  store.dispatch(setCurrentUser(user));
+  store.dispatch(fetchCartc({ username: user.username }));
 }
 
 const { Header, Footer, Content } = Layout;

@@ -16,12 +16,10 @@ const ProductItem = ({ item }) => {
 
     console.log(cartItems);
     dispatch(addProductc(data)).then(()=>
-
     {
       dispatch(fetchCartc({username:user.username}));
       console.log('after', cartItems);
     }
-
     );
   }
     
