@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
+
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(cors());
 // Authentication module url
 app.use("/api/auth", require("./src/routes/auth"));
 app.use("/api/products", require("./src/routes/product"));
+app.use("/api/cart", require("./src/routes/cart"));
 app.use("/api/search", require("./src/routes/search"));
 
 app.use((req, res) => {

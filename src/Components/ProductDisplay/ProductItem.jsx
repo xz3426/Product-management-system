@@ -1,6 +1,8 @@
 import { Card, List, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import Meta from "antd/es/card/Meta";
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductc,fetchCartc } from 'app/cartSlice';
 import jwt_decode from "jwt-decode";
 
 const ProductItem = ({ item }) => {
@@ -13,6 +15,16 @@ const ProductItem = ({ item }) => {
     }
   }
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const cartItems = useSelector((state) => state.cart.cartItems)
+  const handleAdd = () => {
+    const data = {username:user.username, productId:item._id}
+    console.log(123213213123);
+    console.log(cartItems);
+    dispatch(addProductc(data));
+    dispatch(fetchCartc({username:"test"}));
+  }
   return (
     <List.Item>
       <Card
@@ -30,7 +42,7 @@ const ProductItem = ({ item }) => {
           />
         }
         actions={[
-          <Button type="primary" onClick={() => console.log("Add clicked")}>
+          <Button type="primary" onClick={handleAdd}>
             Add
           </Button>,
           <Button

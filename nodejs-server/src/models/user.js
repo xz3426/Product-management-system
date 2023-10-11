@@ -24,6 +24,18 @@ const userSchema = new Schema({
   profileImageUrl: {
     type: String,
   },
+  cart: [
+    {
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+      quantity: {
+        type: Number,
+        default: 1,
+      },
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {
