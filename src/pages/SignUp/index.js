@@ -5,7 +5,7 @@ import AuthForm from "Components/AuthForm";
 import { Layout, message } from "antd";
 import { signUp } from "services/auth";
 
-export default function SignIn() {
+export default function SignUp() {
   const { Content } = Layout;
   const navigate = useNavigate();
   const [signUpStatus, setsignUpStatus] = useState("idle");

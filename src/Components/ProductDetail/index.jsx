@@ -23,12 +23,28 @@ const container = {
 };
 
 const ProductDetail = () => {
+
+  // const product = {
+  //   category: "electronic product",
+  //   imgLink:
+  //     "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS4jC9GWQazavYcMKTwcUF1Wae7BWWm9X0ZYyGfE4hrwgUZKK4hSELEEX-1Bg",
+  //   productName: "iPhone 14",
+  //   quantity: "10",
+  //   price: "999",
+  //   description:
+  //     "Apple iPhone 11, 64GB, Black - Unlocked (Renewed) · 4.3 out of 5 stars",
+  // };
+
+
   const { id } = useParams();
+
   const [value, setValue] = useState("1");
   const [product, setProduct] = useState({});
+
   useEffect(() => {
     async function fetchData() {
       const response = await fetchProductById(id);
+      console.log(response);
       setProduct(response);
     }
     fetchData();
@@ -40,16 +56,18 @@ const ProductDetail = () => {
         <h1 style={title}>Product Detail</h1>
         <div style={container}>
           <Space size={50}>
-            <Image width={400} src={product.url} />
+            <Image width={400} src={product.imgLink} />
             <Content>
               <p style={{ color: "grey" }}>{product.category}</p>
-              <h1>{product.name}</h1>
+              <h1>{product.productName}</h1>
               <h2>
                 <Space size={20}>
                   {`$ ${product.price}`}
-                  <Tag icon={<ExclamationCircleOutlined />} color="warning">
-                    Out of Stock
-                  </Tag>
+                  {Number(product.quantity) === 0 && (
+                    <Tag icon={<ExclamationCircleOutlined />} color="warning">
+                      Out of Stock
+                    </Tag>
+                  )}
                 </Space>
               </h2>
               <p>{product.description}</p>
@@ -58,7 +76,7 @@ const ProductDetail = () => {
                 <Space>
                   <InputNumber
                     min={1}
-                    max={99}
+                    max={product.quantity}
                     value={value}
                     onChange={setValue}
                   />

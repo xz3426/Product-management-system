@@ -23,7 +23,7 @@ const ProductItem = ({ item }) => {
           <Button type="primary" onClick={() => console.log("Add clicked")}>
             Add
           </Button>,
-          <Button disabled={!isAdmin} onClick={() => navigate("/editProduct")}>
+          <Button disabled={!isAdmin} onClick={() => navigate(`/editProduct/${item._id}`)}>
             Edit
           </Button>,
         ]}
