@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editProductAction } from "app/productSlice";
 import { fetchProductById } from "services/products";
-
+import { useNavigate } from "react-router-dom";
 
 const { Content } = Layout;
 
@@ -13,6 +13,7 @@ export default function EditProduct() {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -25,12 +26,14 @@ export default function EditProduct() {
   }, []);
 
   const dispatch = useDispatch();
-  const editProductStatus = useSelector((state) => state.products.productEditStatus);
-  
-  const onSubmit = async (data) => {
-    dispatch(editProductAction({...data, _id:id}));
-  };
+  const editProductStatus = useSelector(
+    (state) => state.products.productEditStatus
+  );
 
+  const onSubmit = async (data) => {
+    await dispatch(editProductAction({ ...data, _id: id }));
+    navigate("/");
+  };
 
   switch (editProductStatus) {
     case "succeeded":
@@ -44,16 +47,15 @@ export default function EditProduct() {
   }
 
   return (
-    (<Content>
-      {!isLoading && 
+    <Content>
+      {!isLoading && (
         <ProductForm
           buttonText="Edit Product"
           onSubmit={onSubmit}
           product={product}
           titleText="Edit Product"
         />
-      }
+      )}
     </Content>
-    )
   );
 }
