@@ -96,21 +96,22 @@ const Cart = () => {
   }, [cartItems, discount]);
 
   return (
-    <div>
-      <h2>Cart ({cartItems.length} items)</h2>
-      <div>
-        {cartItems.map((item) => (
-          <div>
-            <CartItem
-              key={item.id}
-              item={item}
-              onQuantityChange={handleQuantityChange}
-              onRemove={handleRemoveFromCart}
-            />
-          </div>
-        ))}
-      </div>
-      <div className={styles.checkoutContainer}>
+
+    <div >
+        <h2>Cart ({cartItems.length} items)</h2>
+        <div>
+            {cartItems.map((item) => (
+                <div>
+                    <CartItem 
+                      key={item._id}
+                      item={item}
+                      onQuantityChange={handleQuantityChange} 
+                      onRemove={handleRemoveFromCart} 
+                    />
+                </div>
+            ))}
+        </div>
+        <div className={styles.checkoutContainer}>
         <Input
           className={styles.discountCodeInput}
           placeholder="Apply Discount Code"
