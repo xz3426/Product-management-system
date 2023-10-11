@@ -6,8 +6,6 @@ import { Provider } from "react-redux";
 import { StyleProvider } from "@ant-design/cssinjs";
 import reportWebVitals from "./reportWebVitals";
 import store from "app/store";
-import { setCurrentUser } from "app/userSlice";
-import Error from "pages/Error";
 import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

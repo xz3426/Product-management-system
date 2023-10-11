@@ -11,9 +11,18 @@ import ProductItemList from "./ProductItemList";
 import LoadingPage from "./LoadingPage";
 import { Select, Space, Button } from "antd";
 import { LAST_ADDED, PRICE_HIGH_LOW, PRICE_LOW_HIGH } from "consts";
+import jwt_decode from "jwt-decode";
 import styles from "./style.module.css";
 
 export default function ProductDisplay() {
+  let isAdmin;
+  const token = localStorage.getItem("token");
+  if (token) {
+    const authorization = jwt_decode(token).authorization;
+    if (authorization === "admin") {
+      isAdmin = true;
+    }
+  }
   const { products, productFetchingStatus } = useSelector(
     (state) => state.products
   );
@@ -62,13 +71,15 @@ export default function ProductDisplay() {
           ]}
           onChange={handleChange}
         />
-        <Button
-          type="primary"
-          size="large"
-          onClick={() => navigate("/createProduct")}
-        >
-          Add Product
-        </Button>
+        {isAdmin && (
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => navigate("/createProduct")}
+          >
+            Add Product
+          </Button>
+        )}
       </Space>
       {conditionalRender()}
     </div>

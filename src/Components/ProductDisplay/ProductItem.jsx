@@ -1,10 +1,17 @@
-import React, { useMemo } from "react";
 import { Card, List, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import Meta from "antd/es/card/Meta";
+import jwt_decode from "jwt-decode";
 
 const ProductItem = ({ item }) => {
-  const isAdmin = useMemo(() => localStorage.getItem("token"), []);
+  let isAdmin;
+  const token = localStorage.getItem("token");
+  if (token) {
+    const authorization = jwt_decode(token).authorization;
+    if (authorization === "admin") {
+      isAdmin = true;
+    }
+  }
   const navigate = useNavigate();
   return (
     <List.Item>
@@ -16,19 +23,29 @@ const ProductItem = ({ item }) => {
               item.imgLink ||
               "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
             }
+            onClick={() => navigate(`ProductDetail/${item._id}`)}
+            style={{ cursor: "pointer" }}
+            width={"262"}
+            height={"159"}
           />
         }
-        onClick={() => navigate(`ProductDetail/${item._id}`)}
         actions={[
           <Button type="primary" onClick={() => console.log("Add clicked")}>
             Add
           </Button>,
-          <Button disabled={!isAdmin} onClick={() => navigate(`/editProduct/${item._id}`)}>
+          <Button
+            disabled={!isAdmin}
+            onClick={() => navigate(`/editProduct/${item._id}`)}
+          >
             Edit
           </Button>,
         ]}
       >
-        <Meta description={item.productName} />
+        <Meta
+          description={item.productName}
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(`ProductDetail/${item._id}`)}
+        />
         <Meta title={`Price: $${item.price}`} />
       </Card>
     </List.Item>
