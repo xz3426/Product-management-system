@@ -25,6 +25,14 @@ export const removeProduct = async (data) => {
   });
 };
 
+export const removeAllProducts = async (data) => {
+  return await apiCall({
+    url: `/api/cart/removeAllProducts`,
+    method: 'DELETE',
+    data
+  });
+};
+
 export const updateQuantity = async (data) => {
   return await apiCall({
     url: `/api/cart/updateQuantity`,

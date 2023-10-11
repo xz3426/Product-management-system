@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Input, Typography, Row, Col, message } from 'antd';
-import { fetchCartc, updateQuantityc, removeProductc, checkoutCart } from 'app/cartSlice';
+import { fetchCartc, updateQuantityc, removeProductc, removeAllProductc, checkoutCart } from 'app/cartSlice';
 import { applyDiscountCode } from 'utils/discountCodes'; // needs to be implemented
 import CartItem from 'Components/CartItem';
 import styles from './style.module.css';
@@ -49,6 +49,9 @@ const Cart = () => {
 
   const handleCheckout = () => {
     dispatch(checkoutCart({username: currentUser.username})) // pass the current user's id when dispatching the action
+      .then(
+        dispatch(removeAllProductc({username: currentUser.username}))
+      )
       .then(() => {
         message.success('Checkout successful!');
         history('/checkout');

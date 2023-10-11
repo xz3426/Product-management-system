@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addProduct, removeProduct, updateQuantity, checkout, fetchCart } from 'services/cart';
+import { addProduct, removeProduct, removeAllProducts, updateQuantity, checkout, fetchCart } from 'services/cart';
 import { addError, removeError } from './errorSlice';
 
 export const initialState = {
@@ -45,6 +45,21 @@ export const removeProductc = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       await removeProduct(data);
+      thunkAPI.dispatch(removeError());
+      return data;
+    } catch (error) {
+      const { message } = error;
+      thunkAPI.dispatch(addError(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const removeAllProductc = createAsyncThunk(
+  'cart/removeAllProductc',
+  async (data, thunkAPI) => {
+    try {
+      await removeAllProducts(data);
       thunkAPI.dispatch(removeError());
       return data;
     } catch (error) {

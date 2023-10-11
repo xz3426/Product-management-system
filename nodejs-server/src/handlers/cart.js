@@ -46,6 +46,23 @@ exports.removeProduct = async function (req,res,next){
     }
 }
 
+exports.removeAllProducts = async function (req,res,next){
+    const {username} = req.body;
+    try{
+        
+        const user = await db.User.findOne({username});
+        if(!user){
+            return res.status(404).json({message:"User Not Found", ok:false});
+        }
+        user.cart = user.cart.filter(item => item.product.toString() !== "10");
+        // user.cart = {};
+        await user.save();
+        return res.status(200).json(user.cart);
+    } catch (err) {
+            return next(err);
+    }
+}
+
 
 exports.updateQuantity = async function(req, res, next){
     const {username, productId,quantity} = req.body;

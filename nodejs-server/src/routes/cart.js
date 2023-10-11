@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const {
-    addProduct,
+  addProduct,
   removeProduct,
+  removeAllProducts,
   updateQuantity,
   checkout,
   fetchCart
@@ -13,6 +14,7 @@ router.route('/addProduct').post(addProduct);
 
 // DELETE - remove a product from a user's cart
 router.route('/removeProduct').delete(removeProduct);
+router.route('/removeAllProducts').delete(removeAllProducts);
 
 // PUT - update quantity of a product in a user's cart
 router.route('/updateQuantity').put(updateQuantity);
