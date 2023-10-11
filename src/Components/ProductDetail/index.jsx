@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Tag, Layout, Space, Image, InputNumber, Button } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "services/products";
+import {
+  addProductc,
+  fetchCartc,
+  updateQuantityc,
+  selectProductQuantityInCart,
+} from "app/cartSlice";
 
 const { Content } = Layout;
 
@@ -23,23 +30,34 @@ const container = {
 };
 
 const ProductDetail = () => {
-
-  // const product = {
-  //   category: "electronic product",
-  //   imgLink:
-  //     "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS4jC9GWQazavYcMKTwcUF1Wae7BWWm9X0ZYyGfE4hrwgUZKK4hSELEEX-1Bg",
-  //   productName: "iPhone 14",
-  //   quantity: "10",
-  //   price: "999",
-  //   description:
-  //     "Apple iPhone 11, 64GB, Black - Unlocked (Renewed) · 4.3 out of 5 stars",
-  // };
-
-
   const { id } = useParams();
-
   const [value, setValue] = useState("1");
   const [product, setProduct] = useState({});
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const quantity = useSelector((state) =>
+    selectProductQuantityInCart(state, id)
+  );
+
+  const handleAdd = () => {
+    if (quantity === 0) {
+      dispatch(addProductc({ username: user?.username, productId: id })).then(
+        (action) => {
+          dispatch(fetchCartc({ username: user?.username }));
+        }
+      );
+    } else {
+      dispatch(
+        updateQuantityc({
+          username: user?.username,
+          productId: id,
+          quantity: quantity + value,
+        })
+      ).then((action) => {
+        dispatch(fetchCartc({ username: user?.username }));
+      });
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -79,13 +97,9 @@ const ProductDetail = () => {
                     max={product.quantity}
                     value={value}
                     onChange={setValue}
+                    disabled={quantity === 0}
                   />
-                  <Button
-                    type="primary"
-                    //   onClick={() => {
-                    //     setValue(99);
-                    //   }}
-                  >
+                  <Button type="primary" onClick={handleAdd}>
                     Add To Cart
                   </Button>
                 </Space>
