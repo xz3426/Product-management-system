@@ -7,7 +7,11 @@ const cors = require("cors");
 
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Replace with your client's origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // This allows cookies to be sent in cross-origin requests
+}));
 // Api-endpints
 
 // Authentication module url
