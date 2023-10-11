@@ -1,6 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Tag, Layout, Space, Image, InputNumber, Button } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductById } from "services/products";
+import {
+  addProductc,
+  fetchCartc,
+  updateQuantityc,
+  selectProductQuantityInCart,
+} from "app/cartSlice";
 
 const { Content } = Layout;
 
@@ -21,17 +30,43 @@ const container = {
 };
 
 const ProductDetail = () => {
-  //   const { product } = useSelector((state) => state.product);
-  const product = {
-    category: "electronic product",
-    url: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS4jC9GWQazavYcMKTwcUF1Wae7BWWm9X0ZYyGfE4hrwgUZKK4hSELEEX-1Bg",
-    name: "iPhone 14",
-    price: "999",
-    description:
-      "Apple iPhone 11, 64GB, Black - Unlocked (Renewed) · 4.3 out of 5 stars",
+  const { id } = useParams();
+  const [value, setValue] = useState("1");
+  const [product, setProduct] = useState({});
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const quantity = useSelector((state) =>
+    selectProductQuantityInCart(state, id)
+  );
+
+  const handleAdd = () => {
+    if (quantity === 0) {
+      dispatch(addProductc({ username: user?.username, productId: id })).then(
+        (action) => {
+          dispatch(fetchCartc({ username: user?.username }));
+        }
+      );
+    } else {
+      dispatch(
+        updateQuantityc({
+          username: user?.username,
+          productId: id,
+          quantity: quantity + Number(value),
+        })
+      ).then((action) => {
+        dispatch(fetchCartc({ username: user?.username }));
+      });
+    }
   };
 
-  const [value, setValue] = useState("1");
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetchProductById(id);
+      console.log(response);
+      setProduct(response);
+    }
+    fetchData();
+  }, []);
 
   return (
     <Content style={{ padding: "0 50px" }}>
@@ -39,16 +74,18 @@ const ProductDetail = () => {
         <h1 style={title}>Product Detail</h1>
         <div style={container}>
           <Space size={50}>
-            <Image width={400} src={product.url} />
+            <Image width={400} src={product.imgLink} />
             <Content>
               <p style={{ color: "grey" }}>{product.category}</p>
-              <h1>{product.name}</h1>
+              <h1>{product.productName}</h1>
               <h2>
                 <Space size={20}>
                   {`$ ${product.price}`}
-                  <Tag icon={<ExclamationCircleOutlined />} color="warning">
-                    Out of Stock
-                  </Tag>
+                  {Number(product.quantity) === 0 && (
+                    <Tag icon={<ExclamationCircleOutlined />} color="warning">
+                      Out of Stock
+                    </Tag>
+                  )}
                 </Space>
               </h2>
               <p>{product.description}</p>
@@ -57,16 +94,12 @@ const ProductDetail = () => {
                 <Space>
                   <InputNumber
                     min={1}
-                    max={99}
+                    max={product.quantity}
                     value={value}
                     onChange={setValue}
+                    disabled={quantity === 0}
                   />
-                  <Button
-                    type="primary"
-                    //   onClick={() => {
-                    //     setValue(99);
-                    //   }}
-                  >
+                  <Button type="primary" onClick={handleAdd}>
                     Add To Cart
                   </Button>
                 </Space>

@@ -25,7 +25,7 @@ const productSchema = new Schema({
   },
   imgLink: {
     type: String,
-    default: null,
+    default: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
   },
   dateCreated: {
     type: Date,

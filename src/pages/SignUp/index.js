@@ -1,24 +1,24 @@
-import { MailOutlined } from '@ant-design/icons';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import AuthForm from 'Components/AuthForm';
-import { Layout, message} from "antd";
-import { signUp } from 'services/auth';
+import { MailOutlined } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import AuthForm from "Components/AuthForm";
+import { Layout, message } from "antd";
+import { signUp } from "services/auth";
 
-export default function SignIn() {
+export default function SignUp() {
   const { Content } = Layout;
   const navigate = useNavigate();
-  const [signUpStatus,setsignUpStatus] = useState('idle');
-  const [signUpError,setsignUpError] = useState('');
+  const [signUpStatus, setsignUpStatus] = useState("idle");
+  const [signUpError, setsignUpError] = useState("");
 
   useEffect(() => {
-    if (signUpStatus === 'succeeded') {
+    if (signUpStatus === "succeeded") {
       message.success("Sign up successfully!");
-      setsignUpStatus('idle');
+      setsignUpStatus("idle");
       navigate("/signin");
-    } else if (signUpStatus === 'failed') {
+    } else if (signUpStatus === "failed") {
       message.error(signUpError);
-      setsignUpStatus('idle');
+      setsignUpStatus("idle");
     }
   }, [signUpStatus, navigate]);
 
@@ -61,11 +61,9 @@ export default function SignIn() {
   ];
 
   const checkbox = {
-
-    name: 'authorization',
-    text: 'Admin'
-  }
- 
+    name: "authorization",
+    text: "Admin",
+  };
 
   const onSubmit = async (data) => {
     if (data["authorization"]) {
@@ -75,15 +73,14 @@ export default function SignIn() {
     }
     data.username = data.email.split("@")[0];
 
-    try{
+    try {
       await signUp(data);
-      setsignUpStatus('succeeded');
-    }catch(error){
+      setsignUpStatus("succeeded");
+    } catch (error) {
       setsignUpError(error.message);
-      setsignUpStatus('failed');
+      setsignUpStatus("failed");
     }
-       
-};
+  };
 
   return (
     <Content

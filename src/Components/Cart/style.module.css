@@ -1,0 +1,78 @@
+.cartPage {
+    height: 80vh;
+    width: 90vw;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    align-self: flex-start;
+    font-size: 36px;
+}
+
+.cartContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    width: 100%;
+    height: 40%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.checkoutContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 30%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.cartItem {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.discountCodeInput {
+    width: 100%;
+}
+
+.applyButton {
+    width: 100%;
+}
+
+.checkoutButton {
+    width: 100%;
+    margin: auto;
+    display: block;
+}
+
+.rowStyle {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+    .discountCodeInput,
+    .applyButton,
+    .checkoutButton {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .discountCodeInput,
+    .applyButton,
+    .checkoutButton {
+        width: 30%;
+    }
+}

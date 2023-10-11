@@ -54,7 +54,24 @@ const updateProductById = async (req, res, next) => {
       return res.status(404).send({ message: "Product not found" });
     }
 
-    return res.status(200).json(product);
+    return res.status(200).json({
+      message: "Product updated successfully",
+    });
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+      ok: false,
+    });
+  }
+};
+
+const deleteProductById = async (req, res, next) => {
+  try {
+    const productId = req.params.id;
+    await db.Product.findByIdAndDelete(productId);
+    return res.status(200).json({
+      message: "Product delete successfully",
+    });
   } catch (err) {
     return res.status(400).json({
       message: err.message,
@@ -68,4 +85,5 @@ module.exports = {
   getAllProducts,
   getProductById,
   updateProductById,
+  deleteProductById,
 };

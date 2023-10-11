@@ -18,7 +18,6 @@ export default function AuthForm({
 
   return (
     <>
-    
       <Typography className={styles.title}>{title}</Typography>
       {title1 && (<Typography className={styles.title1}>{title1}</Typography>)}
       <Form onFinish={onSubmit} autoComplete="off">
