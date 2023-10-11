@@ -17,6 +17,7 @@ import ChangePassword from "./pages/ChangePassword";
 import CreateProduct from "./pages/CreateProduct";
 import EditProduct from "./pages/EditProduct";
 import Error from "./pages/Error";
+import Checkout from "./pages/Checkout";
 import { setCurrentUser } from "./app/userSlice";
 import store from "app/store";
 import jwtDecode from "jwt-decode";
@@ -62,6 +63,7 @@ function App() {
               }
             />
             <Route path="ProductDetail/:id" element={<ProductDetail />} />
+            <Route path="checkout" element={<Checkout />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </Content>
