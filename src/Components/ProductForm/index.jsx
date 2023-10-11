@@ -1,116 +1,113 @@
 import React, { useEffect, useState } from "react";
 import { Button, Space, Input, Select, Form, Layout, Image } from "antd";
 import { Link } from "react-router-dom";
-import {
-  FileImageTwoTone,
-} from "@ant-design/icons";
+import { FileImageTwoTone } from "@ant-design/icons";
 
 const { Content } = Layout;
 
 const fields = {
-    productName: {
-      placeholder: "Input your product name",
-      name: "productName",
-      type: "text",
-      rules: [
-        {
-          required: true,
-          message: "Please enter your product name!",
-          validateTrigger: "onBlur", 
-        },
-        {
-          type: "text",
-          warningOnly: true,
-        },
-        {
-          type: "string",
-          min: 5,
-          message: "Product Name must be at least 10 characters long",
-        },
-      ],
-    },
+  productName: {
+    placeholder: "Input your product name",
+    name: "productName",
+    type: "text",
+    rules: [
+      {
+        required: true,
+        message: "Please enter your product name!",
+        validateTrigger: "onBlur",
+      },
+      {
+        type: "text",
+        warningOnly: true,
+      },
+      {
+        type: "string",
+        min: 5,
+        message: "Product Name must be at least 10 characters long",
+      },
+    ],
+  },
 
-    description: {
-      placeholder: "Add product description here, no more than 200 words",
-      name: "description",
-      type: "text",
-      rules: [
-        {
-          required: true,
-          message: "Please enter your product description!",
-          validateTrigger: "onBlur", // Validate onBlur
-        },
-      ],
-    },
+  description: {
+    placeholder: "Add product description here, no more than 200 words",
+    name: "description",
+    type: "text",
+    rules: [
+      {
+        required: true,
+        message: "Please enter your product description!",
+        validateTrigger: "onBlur", // Validate onBlur
+      },
+    ],
+  },
 
-    category: {
-      placeholder: "Choose the category",
-      name: "category",
-      type: "string",
-      rules: [
-        {
-          required: true,
-          message: "Please enter your product's category",
-        },
-      ],
-      categories: [
-        {
-          value: "meat",
-          label: "meat",
-        },
-        {
-          value: "drink",
-          label: "drink",
-        },
-        {
-          value: "fruit",
-          label: "fruit",
-        },
-        {
-          value: "electronic product",
-          label: "electronic product"
-        }
-      ],
-    },
+  category: {
+    placeholder: "Choose the category",
+    name: "category",
+    type: "string",
+    rules: [
+      {
+        required: true,
+        message: "Please enter your product's category",
+      },
+    ],
+    categories: [
+      {
+        value: "meat",
+        label: "meat",
+      },
+      {
+        value: "drink",
+        label: "drink",
+      },
+      {
+        value: "fruit",
+        label: "fruit",
+      },
+      {
+        value: "electronic product",
+        label: "electronic product",
+      },
+    ],
+  },
 
-    price: {
-      placeholder: "Input the price",
-      name: "price",
-      type: "number",
-      rules: [
-        {
-          required: true,
-          message: "Please enter your product price!",
-        },
-      ],
-    },
+  price: {
+    placeholder: "Input the price",
+    name: "price",
+    type: "number",
+    rules: [
+      {
+        required: true,
+        message: "Please enter your product price!",
+      },
+    ],
+  },
 
-    quantity: {
-      placeholder: "Input the quantity",
-      name: "quantity",
-      type: "number",
-      rules: [
-        {
-          required: true,
-          message: "Please enter your product quantity!",
-        },
-      ],
-    },
+  quantity: {
+    placeholder: "Input the quantity",
+    name: "quantity",
+    type: "number",
+    rules: [
+      {
+        required: true,
+        message: "Please enter your product quantity!",
+      },
+    ],
+  },
 
-    imgLink: {
-      placeholder: "Input Image Link Here",
-      name: "imgLink",
-      type: "url",
-      rules: [
-        {
-          type: "url",
-          message: "Invalid url format!",
-          validateTrigger: "onBlur", // Validate onBlur
-        },
-      ],
-    },
-  };
-
+  imgLink: {
+    placeholder: "Input Image Link Here",
+    name: "imgLink",
+    type: "url",
+    rules: [
+      {
+        type: "url",
+        message: "Invalid url format!",
+        validateTrigger: "onBlur", // Validate onBlur
+      },
+    ],
+  },
+};
 
 const title = {
   textAlign: "center",
@@ -128,26 +125,18 @@ const container = {
   fontFamily: "Arial, sans-serif",
 };
 
-const ProductForm = ({
-  buttonText,
-  onSubmit,
-  product,
-  titleText
-  }) => {
-
+const ProductForm = ({ buttonText, onSubmit, product, titleText }) => {
   const [productImg, setProductImg] = useState("");
   const [submitedImg, setSubmitedImg] = useState(false);
 
-
   useEffect(() => {
-    if(product?.imgLink !== undefined){
+    if (product?.imgLink !== undefined) {
       setProductImg(product.imgLink);
     }
   }, []);
 
-
   const handleButtonClick = () => {
-    var inputElement = document.getElementById("myInputImg")
+    var inputElement = document.getElementById("myInputImg");
     setProductImg(inputElement.value);
     setSubmitedImg(true);
   };
@@ -155,16 +144,10 @@ const ProductForm = ({
   return (
     <Content>
       <div style={{ backgroundColor: "#f5f3f38f" }}>
-        <h1 style={title}>
-            {titleText}
-        </h1>
+        <h1 style={title}>{titleText}</h1>
 
         <div style={container}>
-          <Form 
-            onFinish={onSubmit} 
-            layout="vertical" 
-            autoComplete="off"
-          >
+          <Form onFinish={onSubmit} layout="vertical" autoComplete="off">
             <Form.Item
               key={fields.productName.name}
               name={fields.productName.name}
@@ -178,7 +161,7 @@ const ProductForm = ({
               />
             </Form.Item>
 
-            <Form.Item 
+            <Form.Item
               key={fields.description.name}
               name={fields.description.name}
               label="Product Description"
@@ -188,7 +171,6 @@ const ProductForm = ({
               <Input.TextArea
                 showCount
                 maxLength={200}
-                
                 style={{
                   height: 120,
                   marginBottom: 24,
@@ -199,7 +181,7 @@ const ProductForm = ({
             </Form.Item>
 
             <Space size="large">
-              <Form.Item   
+              <Form.Item
                 key={fields.category.name}
                 name={fields.category.name}
                 label="Category"
@@ -214,7 +196,7 @@ const ProductForm = ({
                 />
               </Form.Item>
 
-              <Form.Item   
+              <Form.Item
                 key={fields.price.name}
                 name={fields.price.name}
                 label="Price"
@@ -230,7 +212,7 @@ const ProductForm = ({
             </Space>
 
             <Space size="large">
-              <Form.Item 
+              <Form.Item
                 key={fields.quantity.name}
                 name={fields.quantity.name}
                 label="In Stock Quantity"
@@ -244,70 +226,69 @@ const ProductForm = ({
                 />
               </Form.Item>
 
-              <Form.Item 
+              <Form.Item
                 key={fields.imgLink.name}
                 name={fields.imgLink.name}
                 label="Add Image Link"
                 rules={fields.imgLink.rules}
               >
                 <Space.Compact>
-                  <Input 
-                    placeholder={fields.imgLink.placeholder} 
+                  <Input
+                    placeholder={fields.imgLink.placeholder}
                     value={product?.imgLink}
                     id="myInputImg"
                   />
-                  <Button type="primary" onClick={handleButtonClick}>Submit</Button>
+                  <Button type="primary" onClick={handleButtonClick}>
+                    Submit
+                  </Button>
                 </Space.Compact>
               </Form.Item>
             </Space>
 
             <Form.Item>
               {!submitedImg ? (
-                  <div
-                    style={{
-                      margin: "0px 50px",
-                      height: "15em",
-                      backgroundColor: "#f5f3f38f",
-                      border: "1px dashed grey",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <p>
-                      <FileImageTwoTone
-                        style={{
-                          display: "block",
-                          fontSize: "50px",
-                          alignItems: "center",
-                          paddingTop: "1em",
-                        }}
-                      />
-                    </p>
-                    <p
+                <div
+                  style={{
+                    margin: "0px 50px",
+                    height: "15em",
+                    backgroundColor: "#f5f3f38f",
+                    border: "1px dashed grey",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <p>
+                    <FileImageTwoTone
                       style={{
                         display: "block",
-                        textAlign: "center",
-                        color: "grey",
+                        fontSize: "50px",
+                        alignItems: "center",
+                        paddingTop: "1em",
                       }}
-                    >
-                      Product Image Preview
-                    </p>
-                  </div>
+                    />
+                  </p>
+                  <p
+                    style={{
+                      display: "block",
+                      textAlign: "center",
+                      color: "grey",
+                    }}
+                  >
+                    Product Image Preview
+                  </p>
+                </div>
               ) : (
-                <Image 
-                  width={250} 
-                  src={productImg} 
-                  style={{display:"block", marginLeft:"150px"}}
+                <Image
+                  width={250}
+                  src={productImg}
+                  style={{ display: "block", marginLeft: "150px" }}
                 />
               )}
-
             </Form.Item>
             <br />
             <Form.Item>
-              <Link to="/">
-                <Button type="primary" htmlType="submit">
-                  {buttonText}
-                </Button>
-              </Link>
+              <Button type="primary" htmlType="submit">
+                {buttonText}
+              </Button>
             </Form.Item>
           </Form>
         </div>
