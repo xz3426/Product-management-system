@@ -33,35 +33,22 @@ exports.addProduct = async function (req, res, next) {
   }
 };
 
-
-exports.removeProduct = async function (req,res,next){
-    const {username, productId} = req.body;
-    try{
-        const user = await db.User.findOne({username});
-        if(!user){
-            return res.status(404).json({message:"User Not Found", ok:false});
-        }
-        user.cart = user.cart.filter(item => item.product.toString() !== productId.toString());
-        await user.save();
-        return res.status(200).json(user.cart);
-    } catch (err) {
-            return next(err);
-
-
-exports.updateQuantity = async function(req, res, next){
-    const {username, productId,quantity} = req.body;
-    try {
-        const user = await db.User.findOne({username});
-        if (!user) {
-        return res.status(404).json({ error: "User not found" });
-        }
-        const product = user.cart.findIndex(i => i.product.toString() === productId);
-        user.cart[product].quantity = quantity;
-        user.save();
-        return res.status(200).json(user.cart);
-    } catch (err) {
-        return next(err);
+exports.removeProduct = async function (req, res, next) {
+  const { username, productId } = req.body;
+  try {
+    const user = await db.User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: "User Not Found", ok: false });
     }
+    user.cart = user.cart.filter(
+      (item) => item.product.toString() !== productId.toString()
+    );
+    await user.save();
+    return res.status(200).json(user.cart);
+  } catch (err) {
+    return next(err);
+  }
+};
 
 exports.updateQuantity = async function (req, res, next) {
   const { username, productId, quantity } = req.body;
@@ -73,16 +60,12 @@ exports.updateQuantity = async function (req, res, next) {
     const product = user.cart.findIndex(
       (i) => i.product.toString() === productId
     );
-
     user.cart[product].quantity = quantity;
-
-    await user.save();
-
+    user.save();
     return res.status(200).json(user.cart);
   } catch (err) {
     return next(err);
   }
-
 };
 
 exports.checkout = async function (req, res, next) {
@@ -117,41 +100,3 @@ exports.fetchCart = async function (req, res, next) {
     return next(err);
   }
 };
-
-// // POST - /api/cart/checkout/:userId
-// exports.checkout = async function (req, res, next) {
-//   try {
-//     const user = await db.User.findById(req.params.userId).populate('cart.product');
-//     if (!user) {
-//       return res.status(404).json({ error: "User not found" });
-//     }
-//     console.log("!!!!!!", user)
-//     let total = 0;
-//     for(let item of user.cart) {
-//       total += item.quantity * item.product.price;
-//     }
-
-//     // Clear the cart
-//     // user.cart = [];
-//     // await user.save();
-
-//     return res.status(200).json({ total: total });
-//   } catch (err) {
-//     return next(err);
-//   }
-// };
-
-// // GET - /api/cart/:userId
-// exports.getCartItems = async function (req, res, next) {
-//   try {
-//     const user = await db.User.findById(req.params.userId).populate('cart.product');
-//     if (!user) {
-//       return res.status(404).json({ error: "User not found" });
-//     }
-//     console.log("!!!!!!", user)
-
-//     return res.status(200).json(user.cart);
-//   } catch (err) {
-//     return next(err);
-//   }
-// };
