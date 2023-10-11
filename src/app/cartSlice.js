@@ -1,19 +1,25 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addProduct, removeProduct, updateQuantity, checkout, fetchCart } from 'services/cart';
-import { addError, removeError } from './errorSlice';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  addProduct,
+  removeProduct,
+  updateQuantity,
+  checkout,
+  fetchCart,
+} from "services/cart";
+import { addError, removeError } from "./errorSlice";
 
 export const initialState = {
   cartItems: [],
   loading: false,
-  status: 'idle'
+  status: "idle",
 };
 
 export const fetchCartc = createAsyncThunk(
-  'cart/fetchCartc',
+  "cart/fetchCartc",
   async (data, thunkAPI) => {
     try {
       const cartItems = await fetchCart(data);
-      console.log("cartFectched")
+      console.log("cartFectched");
       thunkAPI.dispatch(removeError());
       return cartItems;
     } catch (error) {
@@ -26,7 +32,7 @@ export const fetchCartc = createAsyncThunk(
 );
 
 export const addProductc = createAsyncThunk(
-  'cart/addProductc',
+  "cart/addProductc",
   async (data, thunkAPI) => {
     try {
       await addProduct(data);
@@ -41,7 +47,7 @@ export const addProductc = createAsyncThunk(
 );
 
 export const removeProductc = createAsyncThunk(
-  'cart/removeProductc',
+  "cart/removeProductc",
   async (data, thunkAPI) => {
     try {
       await removeProduct(data);
@@ -56,7 +62,7 @@ export const removeProductc = createAsyncThunk(
 );
 
 export const updateQuantityc = createAsyncThunk(
-  'cart/updateQuantityc',
+  "cart/updateQuantityc",
   async (data, thunkAPI) => {
     try {
       await updateQuantity(data);
@@ -71,7 +77,7 @@ export const updateQuantityc = createAsyncThunk(
 );
 
 export const checkoutCart = createAsyncThunk(
-  'cart/checkoutCart',
+  "cart/checkoutCart",
   async (data, thunkAPI) => {
     try {
       await checkout(data);
@@ -86,58 +92,60 @@ export const checkoutCart = createAsyncThunk(
 );
 
 export const selectProductQuantityInCart = (state, productId) => {
-  const item = state.cart.cartItems.find(item => item.product?._id === productId);
+  const item = state.cart.cartItems.find(
+    (item) => item.product?._id === productId
+  );
   return item ? item.quantity : 0;
 };
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchCartc.pending, (state) => {
         state.loading = true;
-        state.status = 'pending';
+        state.status = "pending";
       })
       .addCase(fetchCartc.fulfilled, (state, action) => {
         state.loading = false;
+        console.log(action.payload);
         state.cartItems = action.payload;
-
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(fetchCartc.rejected, (state) => {
         state.loading = false;
-        state.status = 'failed';
+        state.status = "failed";
       })
       .addCase(addProductc.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(addProductc.rejected, (state) => {
-        state.status = 'failed';
+        state.status = "failed";
       })
       .addCase(removeProductc.fulfilled, (state, action) => {
         state.cartItems = state.cartItems.filter(
           (item) => item.id !== action.payload.productId
         );
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(removeProductc.rejected, (state) => {
-        state.status = 'failed';
+        state.status = "failed";
       })
       .addCase(updateQuantityc.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(updateQuantityc.rejected, (state) => {
-        state.status = 'failed';
+        state.status = "failed";
       })
       .addCase(checkoutCart.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
       })
       .addCase(checkoutCart.rejected, (state) => {
-        state.status = 'failed';
+        state.status = "failed";
       });
-  }
+  },
 });
 
 export default cartSlice.reducer;
