@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Image, Col, Row, InputNumber, Button, Typography, message } from "antd";
-import styles from './style.module.css'; // Import the CSS module
+import {
+  Image,
+  Col,
+  Row,
+  InputNumber,
+  Button,
+  Typography,
+  message,
+} from "antd";
+import styles from "./style.module.css"; // Import the CSS module
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Title, Text } = Typography;
@@ -21,8 +29,12 @@ export default function CartItem({ item, onQuantityChange, onRemove }) {
   return (
     <Row className={styles.productCardRow} align="middle">
       <Col span={4}>
-        <Image alt="product" src= "https://i.stack.imgur.com/mdx8R.png?s=64&g=1"/>
-        {/* {item.product.imgLink} */}
+        <Image
+          alt="product"
+          src={item.product.imgLink}
+          height={"40px"}
+          width={"50px"}
+        />
       </Col>
       <Col span={4}>
         <Button
@@ -33,7 +45,12 @@ export default function CartItem({ item, onQuantityChange, onRemove }) {
         />
       </Col>
       <Col span={4}>
-        <InputNumber min={1} max={10} value={quantity} onChange={handleQuantityChange} />
+        <InputNumber
+          min={1}
+          max={10}
+          value={quantity}
+          onChange={handleQuantityChange}
+        />
       </Col>
       <Col span={4}>
         <Button
