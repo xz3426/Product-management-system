@@ -29,15 +29,11 @@ exports.addProduct = async function (req, res, next){
 
 exports.removeProduct = async function (req,res,next){
     const {username, productId} = req.body;
-    console.log(1);
     try{
-        
         const user = await db.User.findOne({username});
-        console.log(2);
         if(!user){
             return res.status(404).json({message:"User Not Found", ok:false});
         }
-        console.log(3);
         user.cart = user.cart.filter(item => item.product.toString() !== productId.toString());
         await user.save();
         return res.status(200).json(user.cart);
@@ -45,7 +41,6 @@ exports.removeProduct = async function (req,res,next){
             return next(err);
     }
 }
-
 
 exports.updateQuantity = async function(req, res, next){
     const {username, productId,quantity} = req.body;
@@ -55,11 +50,8 @@ exports.updateQuantity = async function(req, res, next){
         return res.status(404).json({ error: "User not found" });
         }
         const product = user.cart.findIndex(i => i.product.toString() === productId);
-
         user.cart[product].quantity = quantity;
-        
-        await user.save;
-
+        user.save();
         return res.status(200).json(user.cart);
     } catch (err) {
         return next(err);

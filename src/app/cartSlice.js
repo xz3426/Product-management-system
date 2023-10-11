@@ -12,8 +12,9 @@ export const fetchCartc = createAsyncThunk(
   'cart/fetchCartc',
   async (data, thunkAPI) => {
     try {
+      console.log("cartFectched");
       const cartItems = await fetchCart(data);
-      console.log("cartFectched")
+      
       thunkAPI.dispatch(removeError());
       return cartItems;
     } catch (error) {
@@ -93,7 +94,13 @@ export const selectProductQuantityInCart = (state, productId) => {
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    logOutCart: (state, action) => {
+      state.cartItems= [];
+      state.status = "idle";
+    },
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCartc.pending, (state) => {
@@ -140,4 +147,5 @@ const cartSlice = createSlice({
   }
 });
 
+export const { logOutCart } = cartSlice.actions;
 export default cartSlice.reducer;

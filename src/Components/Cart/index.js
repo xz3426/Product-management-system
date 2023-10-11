@@ -94,7 +94,7 @@ const Cart = () => {
             {cartItems.map((item) => (
                 <div>
                     <CartItem 
-                      key={item.id}
+                      key={item._id}
                       item={item}
                       onQuantityChange={handleQuantityChange} 
                       onRemove={handleRemoveFromCart} 

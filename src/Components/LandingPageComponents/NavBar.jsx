@@ -6,7 +6,7 @@ import { Layout, Input, Badge, Avatar, Button, Popover, List } from "antd";
 import { logOutUser } from "app/userSlice";
 import Cart from "Components/Cart";
 import { searchProductsAction } from "app/productSlice";
-
+import { logOutCart } from "app/cartSlice";
 const { Header } = Layout;
 const { Search } = Input;
 
@@ -15,13 +15,14 @@ const NavBar_ = () => {
   const isSignedIn = useSelector((state) => state.user.isAuthenticated);
   const dispatch = useDispatch();
   const signOut = () => {
+    dispatch(logOutCart())
     dispatch(logOutUser());
+
   };
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [cartItemCount, setCartItemCount] = useState(cartItems.length);
 
   useEffect(() => {
-    console.log(cartItems.length);
     setCartItemCount(cartItems.length);
   }, [cartItems]);
 
