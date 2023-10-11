@@ -126,7 +126,13 @@ const container = {
   fontFamily: "Arial, sans-serif",
 };
 
-const ProductForm = ({ buttonText, onSubmit, product, titleText }) => {
+const ProductForm = ({
+  buttonText,
+  onSubmit,
+  product,
+  titleText,
+  isEdit = false,
+}) => {
   const [productImg, setProductImg] = useState("");
   const [submitedImg, setSubmitedImg] = useState(false);
   const navigate = useNavigate();
@@ -295,15 +301,17 @@ const ProductForm = ({ buttonText, onSubmit, product, titleText }) => {
               >
                 {buttonText}
               </Button>
-              <Button
-                danger
-                style={{ margin: "20px" }}
-                onClick={() => {
-                  deleteProductById(product._id).then(navigate("/"));
-                }}
-              >
-                Delete
-              </Button>
+              {isEdit && (
+                <Button
+                  danger
+                  style={{ margin: "20px" }}
+                  onClick={() => {
+                    deleteProductById(product._id).then(navigate("/"));
+                  }}
+                >
+                  Delete
+                </Button>
+              )}
             </Form.Item>
           </Form>
         </div>

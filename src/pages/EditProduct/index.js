@@ -54,6 +54,7 @@ export default function EditProduct() {
           onSubmit={onSubmit}
           product={product}
           titleText="Edit Product"
+          isEdit={true}
         />
       )}
     </Content>
