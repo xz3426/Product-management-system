@@ -103,10 +103,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     logOutCart: (state, action) => {
-      state.cartItems= [];
+      state.cartItems = [];
       state.status = "idle";
     },
-
   },
   extraReducers: (builder) => {
     builder
@@ -146,6 +145,7 @@ const cartSlice = createSlice({
         state.status = "failed";
       })
       .addCase(checkoutCart.fulfilled, (state, action) => {
+        state.cartItems = [];
         state.status = "succeeded";
       })
       .addCase(checkoutCart.rejected, (state) => {

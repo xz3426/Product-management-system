@@ -16,7 +16,7 @@ const { Title } = Typography;
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.user);
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [discountCode, setDiscountCode] = useState("");
@@ -55,8 +55,8 @@ const Cart = () => {
     dispatch(checkoutCart({ username: currentUser.username })) // pass the current user's id when dispatching the action
       .then(() => {
         message.success("Checkout successful!");
-        history("/checkout");
       })
+      .then(dispatch(fetchCartc({ username: currentUser?.username })))
       .catch(() => {
         message.error("Checkout failed. Please try again.");
       });
@@ -96,22 +96,21 @@ const Cart = () => {
   }, [cartItems, discount]);
 
   return (
-
-    <div >
-        <h2>Cart ({cartItems.length} items)</h2>
-        <div>
-            {cartItems.map((item) => (
-                <div>
-                    <CartItem 
-                      key={item._id}
-                      item={item}
-                      onQuantityChange={handleQuantityChange} 
-                      onRemove={handleRemoveFromCart} 
-                    />
-                </div>
-            ))}
-        </div>
-        <div className={styles.checkoutContainer}>
+    <div>
+      <h2>Cart ({cartItems.length} items)</h2>
+      <div>
+        {cartItems.map((item) => (
+          <div>
+            <CartItem
+              key={item._id}
+              item={item}
+              onQuantityChange={handleQuantityChange}
+              onRemove={handleRemoveFromCart}
+            />
+          </div>
+        ))}
+      </div>
+      <div className={styles.checkoutContainer}>
         <Input
           className={styles.discountCodeInput}
           placeholder="Apply Discount Code"
