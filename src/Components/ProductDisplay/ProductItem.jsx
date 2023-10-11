@@ -10,6 +10,7 @@ import {
   selectProductQuantityInCart,
 } from "app/cartSlice";
 import jwt_decode from "jwt-decode";
+import { removeProductc } from "app/cartSlice";
 
 const ProductItem = ({ item }) => {
   let isAdmin;
@@ -26,6 +27,7 @@ const ProductItem = ({ item }) => {
   const quantity = useSelector((state) =>
     selectProductQuantityInCart(state, item._id)
   );
+
   useEffect(() => {
     if (user?.username) {
       dispatch(fetchCartc({ username: user?.username }));
@@ -40,16 +42,51 @@ const ProductItem = ({ item }) => {
   };
 
   const handleMinus = () => {
-    dispatch(
-      updateQuantityc({
-        username: user?.username,
-        productId: item._id,
-        quantity: quantity - 1,
-      })
-    ).then((action) => {
-      dispatch(fetchCartc({ username: user?.username }));
-    });
+    if (quantity <= 1) {
+      dispatch(
+        removeProductc({ username: user?.username, productId: item._id })
+      ).then(dispatch(fetchCartc({ username: user?.username })));
+    } else {
+      dispatch(
+        updateQuantityc({
+          username: user?.username,
+          productId: item._id,
+          quantity: quantity - 1,
+        })
+      ).then((action) => {
+        dispatch(fetchCartc({ username: user?.username }));
+      });
+    }
   };
+
+  const actionsToShow =
+    quantity === 0
+      ? [
+          <Button type="primary" onClick={handleAdd}>
+            Add
+          </Button>,
+          <Button
+            disabled={!isAdmin}
+            onClick={() => navigate(`/editProduct/${item._id}`)}
+          >
+            Edit
+          </Button>,
+        ]
+      : [
+          <Button type="primary" onClick={handleMinus}>
+            -
+          </Button>,
+          quantity,
+          <Button type="primary" onClick={handleAdd}>
+            +
+          </Button>,
+          <Button
+            disabled={!isAdmin}
+            onClick={() => navigate(`/editProduct/${item._id}`)}
+          >
+            Edit
+          </Button>,
+        ];
 
   return (
     <List.Item>
@@ -67,20 +104,7 @@ const ProductItem = ({ item }) => {
             height={"159"}
           />
         }
-        actions={[
-          <Button type="primary" onClick={handleMinus}>
-            Minus
-          </Button>,
-          <Button type="primary" onClick={handleAdd}>
-            Add
-          </Button>,
-          <Button
-            disabled={!isAdmin}
-            onClick={() => navigate(`/editProduct/${item._id}`)}
-          >
-            Edit
-          </Button>,
-        ]}
+        actions={actionsToShow}
       >
         <Meta
           description={item.productName}
