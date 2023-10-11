@@ -95,6 +95,9 @@ exports.fetchCart = async function (req, res, next) {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+
+    user.cart = user.cart.filter((product) => product.product!==null);
+    console.log(user.cart);
     return res.status(200).json(user.cart);
   } catch (err) {
     return next(err);
