@@ -31,9 +31,13 @@ export default function ProductDisplay() {
       isAdmin = true;
     }
   }
+
+  
   const { products, productFetchingStatus } = useSelector(
     (state) => state.products
   );
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {

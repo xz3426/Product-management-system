@@ -22,6 +22,8 @@ import store from "app/store";
 import jwtDecode from "jwt-decode";
 
 
+import OnboardingForm from "./Components/OnboardingForm"
+
 
 const { Header, Footer, Content } = Layout;
 
@@ -51,14 +53,17 @@ function App() {
             <Route path="/" element={<MyContent />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="signin" element={<SignIn />} />
+
+            <Route path="onboarding" element={<OnboardingForm/>}/>
+
             <Route path="changepassword" element={<ChangePassword />} />
             {/* <Route path="cart" element={<Cart/>} /> */}
             <Route
               path="createProduct"
               element={
-                <ProtectedRoute>
+                // <ProtectedRoute>
                   <CreateProduct />
-                </ProtectedRoute>
+                // </ProtectedRoute>
               }
             />
 
